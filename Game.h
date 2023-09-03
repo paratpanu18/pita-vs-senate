@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "gui.h"
 #include "Player.h"
 #include "Enemy.h"
 
@@ -12,8 +13,11 @@ public:
 	sf::Texture bg;
 	sf::Sprite bgSprite;
 
+	Enemy Senate[100] = {};
+
+	gui gui;
+
 	Player pita;
-	Enemy slime;
 
 	void Init();
 	void Update(sf::Event& event, sf::RenderWindow& window);

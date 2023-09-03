@@ -12,7 +12,7 @@ void Player::Init() {
 
 }
 
-void Player::Load() {
+void Player::Load(int inputHP) {
     if (playerTexture.loadFromFile("Assets/Player/Texture/playerTexture.png")) {
         std::cout << "Player texture loaded successfully" << std::endl;
         playerSprite.setTexture(playerTexture);
@@ -24,9 +24,17 @@ void Player::Load() {
     else {
         std::cout << "!!! Player texture failed to load !!!" << std::endl;
     }
+
+    facing = 'u';
+    maxHP = inputHP;
+    hp = inputHP;
+    atk = 10;
+    critRate = 45;
+    spd = 3;
+    enemyKilled = 0;
 }
 
-void Player::Update(sf::Vector2f enemyPosition) {
+void Player::Update(sf::Sprite enemySprite) {
     sf::Vector2f currentPosition = playerSprite.getPosition();
     sf::Vector2f playerPosition = playerSprite.getPosition();
 
@@ -34,52 +42,39 @@ void Player::Update(sf::Vector2f enemyPosition) {
         playerSprite.setTextureRect(sf::IntRect(0, 96, 48, 48));
         playerSprite.setScale(2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(0, -spd));
+        facing = 'u';
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && currentPosition.x - spd > 0) {
         playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48));
         playerSprite.setScale(-2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(-spd, 0));
+        facing = 'l';
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && currentPosition.y + spd < 600 - 48) {
         playerSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
         playerSprite.setScale(2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(0, spd));
+        facing = 'd';
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && currentPosition.x + spd < 800) {
         playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48));
         playerSprite.setScale(2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(spd, 0));
+        facing = 'r';
     }
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        bullets.push_back(sf::RectangleShape(sf::Vector2f(5, 5)));
-        bullets[bullets.size() - 1].setPosition(playerPosition);
-
-        bulletDirection = sf::Vector2f(enemyPosition) - bullets[bullets.size() - 1].getPosition();
-        bulletDirection = normalizeVector(bulletDirection);
+        enemyKilled++;
+        hp--;
     }
 
-
-    for (int j = 0; j < bullets.size(); j++) {
-        if ((bullets[j].getPosition().x <= enemyPosition.x - 5.0f || bullets[j].getPosition().x >= enemyPosition.x + 5.0f) || (bullets[j].getPosition().y <= enemyPosition.y - 5.0f || bullets[j].getPosition().y >= enemyPosition.y + 5.0f)) {
-            bullets[j].setPosition(bullets[j].getPosition() + bulletDirection * 3.0f);
-        }
-        else {
-            bullets.erase(bullets.begin());
-        }
-    }
 }
 
 void Player::Draw(sf::RenderWindow& window) {
     window.draw(playerSprite);
-
-    // Draw Bullet
-    for (int i = 0; i < bullets.size(); i++) {
-            window.draw(bullets[i]);
-    }
 }
 
 sf::Vector2f Player::getPosition()

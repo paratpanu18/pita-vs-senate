@@ -8,8 +8,18 @@ Game::Game(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
     isGameClose = 0;
 
-    pita.Load();
-    slime.Load();
+    pita.Load(100);
+
+    srand(time(NULL));
+
+    for (int i = 0; i < 10; i++) {
+        int x = (rand() % 700) + 50;
+        int y = (rand() % 50);
+        int hp = (rand() % 100) + 1;
+        Senate[i].Load(x, y, hp);
+    }
+
+    gui.Init();
 
     bg.loadFromFile("Assets/bg.jpg");
     bgSprite.setTexture(bg);
@@ -39,7 +49,13 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         }
         
     }
-    pita.Update(slime.getPosition());
+
+    for (int i = 0; i < 10; i++) {
+        Senate[i].Update();
+    }
+
+    pita.Update(Senate[0].getSprite());
+    gui.Update(pita.hp, pita.atk, pita.spd, pita.critRate, pita.maxHP, pita.enemyKilled);
 }
 
 void Game::Draw(sf::RenderWindow& window)
@@ -47,8 +63,14 @@ void Game::Draw(sf::RenderWindow& window)
     window.clear(sf::Color::Black);
 
     window.draw(bgSprite);
-    window.draw(pita.playerSprite);
-    window.draw(slime.enemySprite);
+    pita.Draw(window);
+    
+    for (int i = 0; i < 10; i++) {
+        Senate[i].Draw(window);
+    }
+
+
+    gui.Draw(window);
 
     window.display();
 
