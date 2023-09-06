@@ -1,28 +1,39 @@
 #pragma once
+#define maxBullet 10
 
 class Player {
 private:
 	sf::Texture playerTexture;
 
 public:
-	std::vector<sf::RectangleShape> bullets;
+	sf::Sprite bullet[maxBullet];
+	int bulletStatus[maxBullet];
 	sf::Vector2f getPosition();
 	sf::Sprite playerSprite;
 	sf::Vector2f bulletDirection;
 
+	sf::Texture bulletTexture;
+
 	char facing;
+	char bulletDir[maxBullet];
 	int spd;
 	int atk;
 	int hp;
 	int maxHP;
 	int critRate;
 	int enemyKilled;
+	int isCrit;
+
+	int isBreak;
 
 
 public:
 	void Init(); // Call once
 	void Load(int inputHP); // Call once
-	void Update(sf::Sprite enemySprite); // Call every frame
+	void Update(); // Call every frame
 	void Draw(sf::RenderWindow& window); // Call every frame
+	void fireBullet(int bulletNum);
+	void checkIfBulletHit(sf::Sprite enemySprite, int &HP);
+	float findLen(sf::Sprite a, sf::Sprite b);
 	
 };

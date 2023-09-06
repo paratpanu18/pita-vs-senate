@@ -4,8 +4,7 @@
 
 class MainMenu {
 public:
-	
-	MainMenu(int heigh, int widgth, sf::RenderWindow& window);
+	MainMenu(int, int, sf::RenderWindow&);
 
 	sf::Texture bgTexture;
 	sf::Sprite bg;
@@ -28,7 +27,5 @@ private:
 	sf::Font font;
 	sf::Text menuButton[3];
 	sf::Text credit;
-
-
 };
 

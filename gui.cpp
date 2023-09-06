@@ -50,9 +50,15 @@ void gui::Init()
 	senateKilled.setCharacterSize(30);
 	senateKilled.setPosition(650, 10);
 	senateKilled.setFillColor(sf::Color::White);
+
+	waveDetail.setFont(font);
+	waveDetail.setString(" ");
+	waveDetail.setCharacterSize(12);
+	waveDetail.setPosition(650, 60);
+	waveDetail.setFillColor(sf::Color::White);
 }
 
-void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilledAmout)
+void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilledAmout, int wave)
 {
 	// ------------- HP Bar -------------
 	int hpINT = hp;
@@ -78,6 +84,14 @@ void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int sena
 
 	// ------------- Progress -------------
 	senateKilled.setString(std::to_string(senateKilledAmout) + " / 250");
+	switch (wave) {
+		case 1: waveDetail.setString("    -- Wave 1 of 5 --\nMax Senate : 5\nSenate HP : 100 - 150\nSenate ATK : 3"); 	break;
+		case 2: waveDetail.setString("    -- Wave 2 of 5 --\nMax Senate : 10\nSenate HP : 200 - 250\nSenate ATK : 5");	break;
+		case 3: waveDetail.setString("    -- Wave 3 of 5 --\nMax Senate : 13\nSenate HP : 300 - 350\nSenate ATK : 7");	break;
+		case 4: waveDetail.setString("    -- Wave 4 of 5 --\nMax Senate : 15\nSenate HP : 400 - 450\nSenate ATK : 9");	break;
+		case 5: waveDetail.setString("    -- Wave 5 of 5 --\nMax Senate : 20\nSenate HP : 500 - 550\nSenate ATK : 10");	break;
+	}
+
 	// ------------- Progress -------------
 }
 
@@ -87,7 +101,8 @@ void gui::Draw(sf::RenderWindow& window)
 	window.draw(ATK);
 	window.draw(SPD);
 	window.draw(CRITRATE);
-	window.draw(senateKilled);
+	window.draw(senateKilled); 
+	window.draw(waveDetail);
 
 	window.draw(hpBarBG);
 	window.draw(hpBar);

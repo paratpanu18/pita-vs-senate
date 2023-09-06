@@ -19,11 +19,12 @@ public:
 	sf::Text SPD;
 	sf::Text CRITRATE;
 	sf::Text senateKilled;
+	sf::Text waveDetail;
 
 
 
 	void Init();
-	void Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilled);
+	void Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilled, int wave);
 	void Draw(sf::RenderWindow& window);
 
 };

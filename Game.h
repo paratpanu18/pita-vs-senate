@@ -13,7 +13,11 @@ public:
 	sf::Texture bg;
 	sf::Sprite bgSprite;
 
+	int maxEnemy;
+	int wave;
+	int hpMultiplier;
 	Enemy Senate[100] = {};
+	int isGameOver;
 
 	gui gui;
 
