@@ -1,14 +1,30 @@
 #include "GameOver.h"
+#include <fstream>
+
 
 GameOver::GameOver(int widght, int height, sf::RenderWindow &window, int playerScore) {
     window.clear(sf::Color::Black);
 
+    // Load Font
     if (!font.loadFromFile("Assets/Font/Anakotmai-Medium.otf")) {
         std::cout << "!!! GameOver font failed to load !!!" << std::endl;
     }
     else {
         std::cout << "GameOver font loaded succesfully" << std::endl;
     }
+    
+
+    // Load background
+    if (!bgTexture.loadFromFile("Assets/GameOverBG.png")) {
+        std::cout << "!!! Game OVer background failed to load !!!" << std::endl;
+    }
+    else {
+        std::cout << "Game Over background loaded succesfully" << std::endl;
+        bg.setTexture(bgTexture);
+    }
+
+    bgMusic.openFromFile("Assets/BGM/gameovermusic.mp3");
+    bgMusic.setLoop(true);
 
     yourScoreText.setFont(font);
     yourScoreText.setString("YOUR SCORE");
@@ -41,6 +57,13 @@ GameOver::GameOver(int widght, int height, sf::RenderWindow &window, int playerS
     playerNameText.setCharacterSize(15);
     playerNameText.setPosition(350, 435);
 
+    enterText.setFont(font);
+    enterText.setString("");
+    enterText.setFillColor(sf::Color::Yellow);
+    enterText.setCharacterSize(20);
+    enterText.setPosition(270, 500);
+
+    bgMusic.play();
     GameOverLoop(window, playerScore);
 }
 
@@ -56,16 +79,23 @@ void GameOver::Update(sf::Event& event, sf::RenderWindow& window, int playerScor
             if (event.text.unicode == '\b' && playerName.size() != 0 && event.text.unicode != '\r') {
                 playerName.erase(playerName.size() - 1, 1);
             }
-            else if (playerName.size() < 12 && event.text.unicode != '\r') { // Max player's name len is 12
+            else if (playerName.size() < 12 && event.text.unicode != '\r' && ((event.text.unicode >= 'A' && event.text.unicode <= 'Z') || (event.text.unicode >= 'a' && event.text.unicode <= 'z') || (event.text.unicode == ' '))) { // Max player's name len is 12
                 playerName += event.text.unicode;
             }
             playerNameText.setString(playerName);
         }
 
         if (event.type == sf::Event::KeyReleased) {
-            if (event.key.code == sf::Keyboard::Return && playerName.size() != 0) {
-                SaveHighScore(playerScore, playerName);
-                MainMenu menu(800, 600, window);
+            if (event.key.code == sf::Keyboard::Return) {
+                if (playerName.size() <= 0) {
+                    enterText.setString("Please Enter Your Name");
+                    enterText.setFillColor(sf::Color::Red);
+                }
+                else {
+                    SaveHighScore(playerScore, playerName);
+                    bgMusic.stop();
+                    MainMenu menu(800, 600, window);
+                }
             }
         }
     }
@@ -73,11 +103,19 @@ void GameOver::Update(sf::Event& event, sf::RenderWindow& window, int playerScor
 
 void GameOver::Draw(sf::RenderWindow& window)
 {
+    window.draw(bg);
     window.draw(yourScoreText);
     window.draw(playerScoreText);
     window.draw(GameOverText);
     window.draw(EnterYourNameText);
     window.draw(playerNameText);
+    if (playerName.size() > 0) {
+        enterText.setString("Press [ENTER] to proceed");
+        enterText.setFillColor(sf::Color::Yellow);
+        enterText.setCharacterSize(20);
+        enterText.setPosition(270, 500);
+    }
+    window.draw(enterText);
 }
 
 void GameOver::GameOverLoop(sf::RenderWindow& window, int playerScore)
@@ -93,5 +131,22 @@ void GameOver::GameOverLoop(sf::RenderWindow& window, int playerScore)
 
 void GameOver::SaveHighScore(int playerScore, std::string playerName)
 {
-    // handle save score & playername to file
+    // Define the filename to save the data
+    std::string filename = "highscores.oakkun";
+
+    // Open the file for writing (append mode)
+    std::ofstream file(filename, std::ios::app);
+
+    if (!file.is_open()) {
+        std::cerr << "Error opening file for writing: " << filename << std::endl;
+        return;
+    }
+
+    // Write the player name and score to the file
+    file << playerName << "," << playerScore << "\n";
+
+    // Close the file
+    file.close();
+
+    std::cout << "High score saved successfully." << std::endl;
 }

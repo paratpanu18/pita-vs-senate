@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class MainMenu {
 public:
@@ -27,5 +28,8 @@ private:
 	sf::Font font;
 	sf::Text menuButton[3];
 	sf::Text credit;
+
+	sf::Music bgMusic;
+	sf::Music clickSFX;
 };
 

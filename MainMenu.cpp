@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "Game.h"
+#include "HighScore.h"
 
 MainMenu::MainMenu(int height, int widgth, sf::RenderWindow& window)
 {
@@ -20,6 +21,11 @@ MainMenu::MainMenu(int height, int widgth, sf::RenderWindow& window)
 		std::cout << "MainMenu background loaded succesfully" << std::endl;
 		bg.setTexture(bgTexture);
 	}
+
+	bgMusic.openFromFile("Assets/BGM/menuBGM.mp3");
+	bgMusic.setLoop(true);
+
+	clickSFX.openFromFile("Assets/SFX/menuClick.mp3");
 
 	// Play button
 	menuButton[0].setFont(font);
@@ -62,6 +68,8 @@ MainMenu::MainMenu(int height, int widgth, sf::RenderWindow& window)
 
 	MainMenuSelected = 0;
 
+	bgMusic.play();
+	bgMusic.setPlayingOffset(sf::seconds(35.0f)); 
 	MainMenuLoop(window);
 }
 
@@ -88,6 +96,7 @@ void MainMenu::moveUp()
 		}
 		menuButton[MainMenuSelected].setOutlineColor(sf::Color(252, 107, 3));
 	}
+	clickSFX.play();
 }
 
 void MainMenu::moveDown()
@@ -101,6 +110,8 @@ void MainMenu::moveDown()
 		}
 		menuButton[MainMenuSelected].setOutlineColor(sf::Color(252, 107, 3));
 	}
+
+	clickSFX.play();
 }
 
 void MainMenu::Update(sf::Event& event, sf::RenderWindow& window)
@@ -126,12 +137,15 @@ void MainMenu::Update(sf::Event& event, sf::RenderWindow& window)
 				if (MainMenuSelected == 0) {
 					menuClose = 1;
 					window.clear(sf::Color::Black);
+					bgMusic.stop();
 					Game game(window);
 				}
 				
-				// Option
+				// HighScore
 				else if (MainMenuSelected == 1) {
-					std::cout << "Options" << std::endl;
+					window.clear(sf::Color::Black);
+					bgMusic.stop();
+					HighScore scoreboard(window);
 				}
 
 				// Exit Game

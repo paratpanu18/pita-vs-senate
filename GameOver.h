@@ -2,6 +2,7 @@
 #include "MainMenu.h"
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
+#include <SFML/Audio.hpp>
 #include "Game.h"
 
 class GameOver
@@ -20,5 +21,11 @@ public:
 	sf::Text EnterYourNameText;
 	std::string playerName;
 	sf::Text playerNameText;
+	sf::Text enterText;
+
+	sf::Texture bgTexture;
+	sf::Sprite bg;
+
+	sf::Music bgMusic;
 };
 
