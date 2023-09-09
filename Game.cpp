@@ -24,10 +24,15 @@ Game::Game(sf::RenderWindow& window) {
     srand(time(NULL));
 
     for (int i = 0; i < maxEnemy; i++) {
+
         int x = (rand() % 700) + 50;
         int y = (rand() % 50);
         int hp = (rand() % 50) + hpMultiplier;
-        Senate[i].Load(x, y, hp);
+        int prob = rand() % 100;
+
+
+
+        Senate[i].Load(x, y, hp, prob);
         Senate[i].ATK = 3;
     }
 
@@ -113,7 +118,9 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
             int x = (rand() % 700) + 50;
             int y = (rand() % 50);
             int hp = (rand() % 50) + hpMultiplier;
-            Senate[i].Load(x, y, hp);
+            int prob = rand() % 100;
+
+            Senate[i].Load(x, y, hp, prob);
             switch (wave) {
             case 1: Senate[i].ATK = 3; break;
             case 2: Senate[i].ATK = 5; break;

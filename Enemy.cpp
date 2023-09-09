@@ -6,14 +6,11 @@ void Enemy::Init() {
 
 }
 
-void Enemy::Load(int x, int y, int inputHP) {
+void Enemy::Load(int x, int y, int inputHP,int prob) {
     enemyStatus = 1;
     spd = 2;
 
-    srand(time(NULL));
-    int prob = rand() % 100;
-
-    if (prob == 1) {
+    if (prob < 5) { // Seper Senate spawn at rate of 5%
         if (superSenateTexture.loadFromFile("Assets/enemySpriteSheet.png")) {
             std::cout << "SuperSenate texture loaded successfully" << std::endl;
             enemySprite.setTexture(superSenateTexture);
@@ -39,9 +36,6 @@ void Enemy::Load(int x, int y, int inputHP) {
             HP = inputHP;
             maxHP = inputHP;
         }
-        else {
-            std::cout << "!!! Enemy texture failed to load !!!" << std::endl;
-        }
     }
 
     if (!statusFont.loadFromFile("Assets/Font/Anakotmai-Medium.otf")) {
@@ -63,7 +57,7 @@ void Enemy::Update(int &playerHP, int playerMaxHP) {
         enemySprite.setPosition(enemySprite.getPosition().x, enemySprite.getPosition().y + spd);
     }
 
-    float hpRatio = HP / maxHP;
+    float hpRatio = (float)HP / (float)maxHP;
 
     if (hpRatio >= 0.6f) statusText.setFillColor(sf::Color::Green);
     else if (hpRatio >= 0.4f && hpRatio < 0.6f) statusText.setFillColor(sf::Color::Yellow);
