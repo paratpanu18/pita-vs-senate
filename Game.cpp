@@ -21,7 +21,6 @@ Game::Game(sf::RenderWindow& window) {
     hpMultiplier = 100;
 
     pita.Load(100);
-    pita.enemyKilled = 249;
 
     srand(time(NULL));
 
@@ -79,7 +78,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         Senate[i].Update(pita.hp, pita.maxHP);
     }
 
-    if (pita.enemyKilled > 200 && isWaveBuff[3] == false) {
+    if (pita.enemyKilled >= 200 && isWaveBuff[3] == false) {
         wave = 5;
         hpMultiplier = 500;
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
@@ -87,7 +86,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         maxEnemy = 20;
         isWaveBuff[3] = true;
     }
-    else if (pita.enemyKilled > 150 && isWaveBuff[2] == false) {
+    else if (pita.enemyKilled >= 150 && pita.enemyKilled <= 199 && isWaveBuff[2] == false) {
         wave = 4;
         hpMultiplier = 400;
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
@@ -95,14 +94,14 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         maxEnemy = 15;
         isWaveBuff[2] = true;
     }
-    else if (pita.enemyKilled > 100 && isWaveBuff[1] == false) {
+    else if (pita.enemyKilled >= 100 && pita.enemyKilled <= 149 &&  isWaveBuff[1] == false) {
         wave = 3;
         hpMultiplier = 300;
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
         pita.healFull();
         isWaveBuff[1] = true;
     }
-    else if (pita.enemyKilled > 50 && isWaveBuff[0] == false) {
+    else if (pita.enemyKilled >= 50 && pita.enemyKilled <= 99 && isWaveBuff[0] == false) {
         wave = 2;
         hpMultiplier = 200;
         pita.buff(0, 50, 50, 1, 10); // HP maxHP ATK SPD CRIT
