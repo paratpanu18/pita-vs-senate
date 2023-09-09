@@ -11,39 +11,65 @@ void gui::Init()
 		std::cout << "GUI font loaded succesfully" << std::endl;
 	}
 
-	hpBar.setSize(sf::Vector2f(800, 20));
+	hpBar.setSize(sf::Vector2f(750, 5));
 	hpBar.setOrigin(0, 0);
-	hpBar.setPosition(0, 580);
+	hpBar.setPosition(25, 570);
 	hpBar.setFillColor(sf::Color::Green);
 
-	hpBarBG.setSize(sf::Vector2f(800, 20));
+	hpBarBG.setSize(sf::Vector2f(750, 5));
 	hpBarBG.setOrigin(0, 0);
-	hpBarBG.setPosition(0, 580);
+	hpBarBG.setPosition(25, 570);
 	hpBarBG.setFillColor(sf::Color(153, 151, 151));
+	hpBarBG.setOutlineColor(sf::Color::White);
+	hpBarBG.setOutlineThickness(2.5f);
+
+	// HP
+	hpIconTexture.loadFromFile("Assets/GUI/hp.png");
+	hpIcon.setTexture(hpIconTexture);
+	hpIcon.setScale(0.4f, 0.4f);
+	hpIcon.setPosition(25, 520);
 
 	HP.setFont(font);
 	HP.setString("HP : ");
 	HP.setCharacterSize(14);
-	HP.setPosition(10, 560);
-	HP.setFillColor(sf::Color::Black);
+	HP.setPosition(80, 540);
+	HP.setFillColor(sf::Color::White);
+
+	// ATK
+	atkIconTexture.loadFromFile("Assets/GUI/atk.png");
+	atkIcon.setTexture(atkIconTexture);
+	atkIcon.setScale(0.4f, 0.4f);
+	atkIcon.setPosition(225, 520);
 
 	ATK.setFont(font);
 	ATK.setString("ATK : ");
 	ATK.setCharacterSize(14);
-	ATK.setPosition(150, 560);
-	ATK.setFillColor(sf::Color::Black);
+	ATK.setPosition(280, 540);
+	ATK.setFillColor(sf::Color::White);
+
+	// SPD
+	spdIconTexture.loadFromFile("Assets/GUI/spd.png");
+	spdIcon.setTexture(spdIconTexture);
+	spdIcon.setScale(0.4f, 0.4f);
+	spdIcon.setPosition(390, 520);
 
 	SPD.setFont(font);
 	SPD.setString("SPD : ");
 	SPD.setCharacterSize(14);
-	SPD.setPosition(290, 560);
-	SPD.setFillColor(sf::Color::Black);
+	SPD.setPosition(445, 540);
+	SPD.setFillColor(sf::Color::White);
+
+	// CRIT
+	critIconTexture.loadFromFile("Assets/GUI/crit.png");
+	critIcon.setTexture(critIconTexture);
+	critIcon.setScale(0.4f, 0.4f);
+	critIcon.setPosition(570, 525);
 
 	CRITRATE.setFont(font);
 	CRITRATE.setString("Crit Rate : ");
 	CRITRATE.setCharacterSize(14);
-	CRITRATE.setPosition(430, 560);
-	CRITRATE.setFillColor(sf::Color::Black);
+	CRITRATE.setPosition(625, 540);
+	CRITRATE.setFillColor(sf::Color::White);
 
 	senateKilled.setFont(font);
 	senateKilled.setString("0 / 250");
@@ -68,18 +94,18 @@ void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int sena
 	else if (hp / maxHP > 0.4f) hpBar.setFillColor(sf::Color::Yellow);
 	else if (hp / maxHP <= 0.4f) hpBar.setFillColor(sf::Color::Red);
 
-	hpBar.setSize(sf::Vector2f((hp / maxHP) * 800, 20));
+	hpBar.setSize(sf::Vector2f((hp / maxHP) * 750, 5));
 
 	// ------------- HP Bar -------------
 
 	// ------------- Status Bar -------------
-	HP.setString("HP : " + std::to_string(hpINT) + "/" + std::to_string(maxHPINT));
+	HP.setString(std::to_string(hpINT) + "/" + std::to_string(maxHPINT));
 
-	ATK.setString("ATK : " + std::to_string(atk));
+	ATK.setString(std::to_string(atk));
 
-	SPD.setString("SPD : " + std::to_string(spd));
+	SPD.setString(std::to_string(spd));
 
-	CRITRATE.setString("Crit Rate : " + std::to_string(critrate) + "%");
+	CRITRATE.setString(std::to_string(critrate) + "%");
 	// ------------- Status Bar -------------
 
 	// ------------- Progress -------------
@@ -97,14 +123,23 @@ void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int sena
 
 void gui::Draw(sf::RenderWindow& window)
 {
+	window.draw(hpIcon);
 	window.draw(HP);
+
+	window.draw(atkIcon);
 	window.draw(ATK);
+
+	window.draw(spdIcon);
 	window.draw(SPD);
+
+	window.draw(critIcon);
 	window.draw(CRITRATE);
+
 	window.draw(senateKilled); 
 	window.draw(waveDetail);
 
 	window.draw(hpBarBG);
 	window.draw(hpBar);
 
+	
 }

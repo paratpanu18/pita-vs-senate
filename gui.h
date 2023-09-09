@@ -21,6 +21,17 @@ public:
 	sf::Text senateKilled;
 	sf::Text waveDetail;
 
+	sf::Texture hpIconTexture;
+	sf::Sprite hpIcon;
+
+	sf::Texture atkIconTexture;
+	sf::Sprite atkIcon;
+
+	sf::Texture spdIconTexture;
+	sf::Sprite spdIcon;
+
+	sf::Texture critIconTexture;
+	sf::Sprite critIcon;
 
 
 	void Init();
