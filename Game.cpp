@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "MainMenu.h"
 #include "GameOver.h"
+#include "GameWin.h"
 #include <iostream>
 
 bool isWaveBuff[5];
@@ -20,9 +21,11 @@ Game::Game(sf::RenderWindow& window) {
     hpMultiplier = 100;
 
     pita.Load(100);
+    pita.enemyKilled = 249;
 
     srand(time(NULL));
 
+    /*
     for (int i = 0; i < maxEnemy; i++) {
 
         int x = (rand() % 700) + 50;
@@ -30,11 +33,10 @@ Game::Game(sf::RenderWindow& window) {
         int hp = (rand() % 50) + hpMultiplier;
         int prob = rand() % 100;
 
-
-
         Senate[i].Load(x, y, hp, prob);
         Senate[i].ATK = 3;
     }
+    */
 
     isGameOver = 0;
     gui.Init();
@@ -110,7 +112,11 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
     }
 
     if (pita.hp <= 0) {
-        isGameOver = 1;
+        isGameOver = 1; // Game Over
+    }
+
+    if (pita.enemyKilled >= 250) {
+        isGameOver = 2; // Game Win
     }
 
     for (int i = 0; i < maxEnemy; i++) {
@@ -158,8 +164,14 @@ void Game::Draw(sf::RenderWindow& window)
 
         window.display();
     }
-
-    else {
+    else if (isGameOver == 2) {
+        window.clear(sf::Color::Black);
+        isGameClose = 1;
+        bgmMusic.stop();
+        pita.enemyKilled = 250;
+        GameWin win(800, 600, window, pita.enemyKilled);
+    }
+    else if (isGameOver == 1) {
         window.clear(sf::Color::Black);
         isGameClose = 1;
         bgmMusic.stop();
