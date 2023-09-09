@@ -180,6 +180,11 @@ void Player::healFull()
     hp = maxHP;
 }
 
+void Player::skipWave(int num)
+{
+    if (enemyKilled < num) enemyKilled++;
+}
+
 void Player::buff(int inputhp, int inputmaxHP, int inputatk, int inputspd, int inputcritRate)
 {
     hp += inputhp;

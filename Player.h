@@ -39,6 +39,7 @@ public:
 	void checkIfBulletHit(sf::Sprite enemySprite, int &HP);
 	float findLen(sf::Sprite a, sf::Sprite b);
 	void healFull();
+	void skipWave(int num);
 
 	void buff(int hp, int maxHP, int atk, int spd, int critRate);
 	

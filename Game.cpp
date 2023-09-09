@@ -58,6 +58,9 @@ void Game::Init()
 
 void Game::Update(sf::Event& event, sf::RenderWindow& window)
 {
+    // Cheat
+    //pita.skipWave(249);
+
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window.close();
