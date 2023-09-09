@@ -3,11 +3,12 @@
 class Enemy {
 private:
 	sf::Texture enemyTexture;
+	sf::Texture superSenateTexture;
 	
 public:
 	void Init();
 	void Load(int x, int y, int inputHP);
-	void Update(int& playerHP);
+	void Update(int& playerHP, int playerMaxHP);
 	void Draw(sf::RenderWindow& window);
 	sf::Vector2f getPosition();
 	sf::Sprite getSprite();

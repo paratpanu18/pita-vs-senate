@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include "gui.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -29,5 +30,7 @@ public:
 	void GameLoop(sf::RenderWindow& window);
 
 	int isGameClose;
+
+	sf::Music bgmMusic;
 };
 

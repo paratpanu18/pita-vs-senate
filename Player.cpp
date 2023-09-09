@@ -38,7 +38,7 @@ void Player::Load(int inputHP) {
     facing = 'u';
     maxHP = inputHP;
     hp = inputHP;
-    atk = 20;
+    atk = 40;
     critRate = 45;
     spd = 5;
     enemyKilled = 40;
@@ -50,6 +50,8 @@ void Player::Load(int inputHP) {
         bullet[i].setOrigin(10, 10);
         bulletStatus[i] = 0;
     }
+
+    shootSFX.openFromFile("Assets/SFX/bulletShoot.mp3");
 }
 
 void Player::Update() {
@@ -173,6 +175,20 @@ float Player::findLen(sf::Sprite a, sf::Sprite b)
     return std::sqrt(pow((b.getPosition().x - a.getPosition().x), 2) + pow((b.getPosition().y - a.getPosition().y), 2));
 }
 
+void Player::healFull()
+{
+    hp = maxHP;
+}
+
+void Player::buff(int inputhp, int inputmaxHP, int inputatk, int inputspd, int inputcritRate)
+{
+    hp += inputhp;
+    maxHP += inputmaxHP;
+    atk += inputatk;
+    spd += inputspd;
+    critRate += inputcritRate;
+}
+
 void Player::Draw(sf::RenderWindow& window) {
     window.draw(playerSprite);
 
@@ -193,4 +209,5 @@ void Player::fireBullet(int bulletNum) {
     bullet[bulletNum].setPosition(sf::Vector2f(playerSprite.getPosition()));
 
     bulletDir[bulletNum] = facing;
+    shootSFX.play();
 }

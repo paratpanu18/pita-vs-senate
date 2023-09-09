@@ -1,5 +1,6 @@
 #pragma once
 #define maxBullet 10
+#include <SFML/Audio.hpp>
 
 class Player {
 private:
@@ -26,6 +27,8 @@ public:
 
 	int isBreak;
 
+	sf::Music shootSFX;
+
 
 public:
 	void Init(); // Call once
@@ -35,5 +38,8 @@ public:
 	void fireBullet(int bulletNum);
 	void checkIfBulletHit(sf::Sprite enemySprite, int &HP);
 	float findLen(sf::Sprite a, sf::Sprite b);
+	void healFull();
+
+	void buff(int hp, int maxHP, int atk, int spd, int critRate);
 	
 };

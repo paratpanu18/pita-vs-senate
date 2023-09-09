@@ -5,17 +5,21 @@
 #include "GameOver.h"
 #include <iostream>
 
-bool isMouseRelease = false;
+bool isWaveBuff[5];
 
 Game::Game(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
     isGameClose = 0;
 
+    for (int i = 0; i < 5; i++) {
+        isWaveBuff[i] = false;
+    }
+
     maxEnemy = 5;
     wave = 1;
     hpMultiplier = 100;
 
-    pita.Load(10);
+    pita.Load(100);
 
     srand(time(NULL));
 
@@ -32,6 +36,10 @@ Game::Game(sf::RenderWindow& window) {
 
     bg.loadFromFile("Assets/bg.jpg");
     bgSprite.setTexture(bg);
+
+    bgmMusic.openFromFile("Assets/BGM/gameBGM.mp3");
+    bgmMusic.setLoop(true);
+    bgmMusic.play();
 
     GameLoop(window);
 }
@@ -53,6 +61,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
             if (event.key.code == sf::Keyboard::Escape) {
                 window.clear(sf::Color::Black);
                 isGameClose = 1;
+                bgmMusic.stop();
                 MainMenu menu(800, 600, window);
             }
         }
@@ -60,7 +69,43 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
     }
 
     for (int i = 0; i < maxEnemy; i++) {
-        Senate[i].Update(pita.hp);
+        Senate[i].Update(pita.hp, pita.maxHP);
+    }
+
+    if (pita.enemyKilled > 200 && isWaveBuff[3] == false) {
+        wave = 5;
+        hpMultiplier = 500;
+        pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
+        pita.healFull();
+        maxEnemy = 20;
+        isWaveBuff[3] = true;
+    }
+    else if (pita.enemyKilled > 150 && isWaveBuff[2] == false) {
+        wave = 4;
+        hpMultiplier = 400;
+        pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
+        pita.healFull();
+        maxEnemy = 15;
+        isWaveBuff[2] = true;
+    }
+    else if (pita.enemyKilled > 100 && isWaveBuff[1] == false) {
+        wave = 3;
+        hpMultiplier = 300;
+        pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
+        pita.healFull();
+        isWaveBuff[1] = true;
+    }
+    else if (pita.enemyKilled > 50 && isWaveBuff[0] == false) {
+        wave = 2;
+        hpMultiplier = 200;
+        pita.buff(0, 50, 50, 1, 10); // HP maxHP ATK SPD CRIT
+        pita.healFull();
+        maxEnemy = 10;
+        isWaveBuff[0] = true;
+    }
+
+    if (pita.hp <= 0) {
+        isGameOver = 1;
     }
 
     for (int i = 0; i < maxEnemy; i++) {
@@ -87,35 +132,6 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
 
     gui.Update(pita.hp, pita.atk, pita.spd, pita.critRate, pita.maxHP, pita.enemyKilled, wave);
 
-    if (pita.enemyKilled > 200) {
-        wave = 5;
-        hpMultiplier = 500;
-        pita.atk = 250;
-        maxEnemy = 20;
-    }
-    else if (pita.enemyKilled > 150) {
-        wave = 4;
-        hpMultiplier = 400;
-        pita.atk = 200;
-        maxEnemy = 15;
-    }
-    else if (pita.enemyKilled > 100) {
-        wave = 3;
-        hpMultiplier = 300;
-        pita.atk = 150;
-        maxEnemy = 13;
-    }
-    else if (pita.enemyKilled > 50) {
-        wave = 2;
-        hpMultiplier = 200;
-        pita.atk = 100;
-        maxEnemy = 10;
-        pita.maxHP = 150;
-    }
-
-    if (pita.hp <= 0) {
-        isGameOver = 1;
-    }
 }
 
 void Game::Draw(sf::RenderWindow& window)
@@ -139,6 +155,7 @@ void Game::Draw(sf::RenderWindow& window)
     else {
         window.clear(sf::Color::Black);
         isGameClose = 1;
+        bgmMusic.stop();
         GameOver over(800, 600, window, pita.enemyKilled);
     }
 
