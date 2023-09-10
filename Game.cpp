@@ -59,7 +59,7 @@ void Game::Init()
 void Game::Update(sf::Event& event, sf::RenderWindow& window)
 {
     // Cheat
-    //pita.skipWave(249);
+    pita.skipWave(150);
 
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
@@ -141,7 +141,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
 
     pita.Update();
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < maxEnemy; i++) {
         pita.checkIfBulletHit(Senate[i].getSprite(), Senate[i].HP);
     }
 
