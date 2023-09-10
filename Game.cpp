@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "MainMenu.h"
 #include "GameOver.h"
+#include "GameWin.h"
 #include <iostream>
 
 bool isWaveBuff[5];
@@ -23,6 +24,7 @@ Game::Game(sf::RenderWindow& window) {
 
     srand(time(NULL));
 
+    /*
     for (int i = 0; i < maxEnemy; i++) {
 
         int x = (rand() % 700) + 50;
@@ -30,11 +32,10 @@ Game::Game(sf::RenderWindow& window) {
         int hp = (rand() % 50) + hpMultiplier;
         int prob = rand() % 100;
 
-
-
         Senate[i].Load(x, y, hp, prob);
         Senate[i].ATK = 3;
     }
+    */
 
     isGameOver = 0;
     gui.Init();
@@ -57,6 +58,9 @@ void Game::Init()
 
 void Game::Update(sf::Event& event, sf::RenderWindow& window)
 {
+    // Cheat
+    pita.skipWave(150);
+
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window.close();
@@ -77,7 +81,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         Senate[i].Update(pita.hp, pita.maxHP);
     }
 
-    if (pita.enemyKilled > 200 && isWaveBuff[3] == false) {
+    if (pita.enemyKilled >= 200 && isWaveBuff[3] == false) {
         wave = 5;
         hpMultiplier = 500;
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
@@ -85,7 +89,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         maxEnemy = 20;
         isWaveBuff[3] = true;
     }
-    else if (pita.enemyKilled > 150 && isWaveBuff[2] == false) {
+    else if (pita.enemyKilled >= 150 && pita.enemyKilled <= 199 && isWaveBuff[2] == false) {
         wave = 4;
         hpMultiplier = 400;
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
@@ -93,14 +97,14 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         maxEnemy = 15;
         isWaveBuff[2] = true;
     }
-    else if (pita.enemyKilled > 100 && isWaveBuff[1] == false) {
+    else if (pita.enemyKilled >= 100 && pita.enemyKilled <= 149 &&  isWaveBuff[1] == false) {
         wave = 3;
         hpMultiplier = 300;
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
         pita.healFull();
         isWaveBuff[1] = true;
     }
-    else if (pita.enemyKilled > 50 && isWaveBuff[0] == false) {
+    else if (pita.enemyKilled >= 50 && pita.enemyKilled <= 99 && isWaveBuff[0] == false) {
         wave = 2;
         hpMultiplier = 200;
         pita.buff(0, 50, 50, 1, 10); // HP maxHP ATK SPD CRIT
@@ -110,7 +114,11 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
     }
 
     if (pita.hp <= 0) {
-        isGameOver = 1;
+        isGameOver = 1; // Game Over
+    }
+
+    if (pita.enemyKilled >= 250) {
+        isGameOver = 2; // Game Win
     }
 
     for (int i = 0; i < maxEnemy; i++) {
@@ -133,7 +141,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
 
     pita.Update();
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < maxEnemy; i++) {
         pita.checkIfBulletHit(Senate[i].getSprite(), Senate[i].HP);
     }
 
@@ -158,8 +166,14 @@ void Game::Draw(sf::RenderWindow& window)
 
         window.display();
     }
-
-    else {
+    else if (isGameOver == 2) {
+        window.clear(sf::Color::Black);
+        isGameClose = 1;
+        bgmMusic.stop();
+        pita.enemyKilled = 250;
+        GameWin win(800, 600, window, pita.enemyKilled);
+    }
+    else if (isGameOver == 1) {
         window.clear(sf::Color::Black);
         isGameClose = 1;
         bgmMusic.stop();

@@ -22,6 +22,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="GameWin.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="HighScore.cpp" />
     <ClCompile Include="main.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GameWin.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="HighScore.h" />
     <ClInclude Include="MainMenu.h" />

@@ -41,7 +41,7 @@ void Player::Load(int inputHP) {
     atk = 40;
     critRate = 45;
     spd = 5;
-    enemyKilled = 40;
+    enemyKilled = 0;
 
     for (int i = 0; i < maxBullet; i++) {
         std::cout << "Bullet" << i << "texture loaded successfully" << std::endl;
@@ -178,6 +178,11 @@ float Player::findLen(sf::Sprite a, sf::Sprite b)
 void Player::healFull()
 {
     hp = maxHP;
+}
+
+void Player::skipWave(int num)
+{
+    if (enemyKilled < num) enemyKilled++;
 }
 
 void Player::buff(int inputhp, int inputmaxHP, int inputatk, int inputspd, int inputcritRate)
