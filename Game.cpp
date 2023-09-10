@@ -59,7 +59,8 @@ void Game::Init()
 void Game::Update(sf::Event& event, sf::RenderWindow& window)
 {
     // Cheat
-    pita.skipWave(150);
+    //pita.skipWave(240);
+    //pita.enemyKilled = 250;
 
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
@@ -128,6 +129,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
             int hp = (rand() % 50) + hpMultiplier;
             int prob = rand() % 100;
 
+            Senate[i].Init();
             Senate[i].Load(x, y, hp, prob);
             switch (wave) {
             case 1: Senate[i].ATK = 3; break;

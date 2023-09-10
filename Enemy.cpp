@@ -3,7 +3,8 @@
 #include <iostream>
 
 void Enemy::Init() {
-
+    superSenateTexture.loadFromFile("Assets/enemySpriteSheet.png");
+    enemyTexture.loadFromFile("Assets/enemySpriteSheet.png");
 }
 
 void Enemy::Load(int x, int y, int inputHP,int prob) {
@@ -11,7 +12,6 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
     spd = 2;
 
     if (prob < 5) { // Seper Senate spawn at rate of 5%
-        if (superSenateTexture.loadFromFile("Assets/enemySpriteSheet.png")) {
             std::cout << "SuperSenate texture loaded successfully" << std::endl;
             enemySprite.setTexture(superSenateTexture);
             enemySprite.setTextureRect(sf::IntRect(0, 256, 32, 32));
@@ -20,13 +20,8 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
             enemySprite.setOrigin(16, 16);
             maxHP = inputHP * 2;
             HP = maxHP;
-        }
-        else {
-            std::cout << "!!! SuperSenate texture failed to load !!!" << std::endl;
-        }
     }
     else {
-        if (enemyTexture.loadFromFile("Assets/enemySpriteSheet.png")) {
             std::cout << "Enemy texture loaded successfully" << std::endl;
             enemySprite.setTexture(enemyTexture);
             enemySprite.setTextureRect(sf::IntRect(0, 224, 32, 32));
@@ -35,7 +30,6 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
             enemySprite.setOrigin(16, 16);
             HP = inputHP;
             maxHP = inputHP;
-        }
     }
 
     if (!statusFont.loadFromFile("Assets/Font/Anakotmai-Medium.otf")) {

@@ -1,4 +1,5 @@
 #include "GameWin.h"
+#include "endCredit.h"
 #include <fstream>
 
 GameWin::GameWin(int widght, int height, sf::RenderWindow& window, int playerScore) {
@@ -86,8 +87,9 @@ void GameWin::Update(sf::Event& event, sf::RenderWindow& window, int playerScore
                 }
                 else {
                     SaveHighScore(playerScore, playerName);
-                    bgMusic.stop();
-                    MainMenu menu(800, 600, window);
+                    endCredit(window, bgMusic);
+                    //bgMusic.stop();
+                    //MainMenu menu(800, 600, window);
                 }
             }
         }
