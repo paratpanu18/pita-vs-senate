@@ -43,6 +43,9 @@ void Player::Load(int inputHP) {
     spd = 5;
     enemyKilled = 0;
 
+    canDash = false;
+    timeDash = 0;
+
     for (int i = 0; i < maxBullet; i++) {
         std::cout << "Bullet" << i << "texture loaded successfully" << std::endl;
         bullet[i].setTexture(bulletTexture);
@@ -58,6 +61,9 @@ void Player::Update() {
 
     sf::Vector2f currentPosition = playerSprite.getPosition();
     sf::Vector2f playerPosition = playerSprite.getPosition();
+
+    if (timeDash < 30) timeDash++;
+    else if (timeDash >= 30) canDash = true;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && currentPosition.y - spd > 48) {
         playerSprite.setTextureRect(sf::IntRect(0, 96, 48, 48));
@@ -85,6 +91,18 @@ void Player::Update() {
         playerSprite.setScale(2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(spd, 0));
         facing = 'r';
+    }
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && canDash) {
+        switch (facing)
+        {
+        case 'u': playerSprite.setPosition(currentPosition + sf::Vector2f(0, -50)); timeDash = 0; canDash = false; break;
+        case 'd': playerSprite.setPosition(currentPosition + sf::Vector2f(0, 50)); timeDash = 0; canDash = false; break;
+        case 'l': playerSprite.setPosition(currentPosition + sf::Vector2f(-50, 0)); timeDash = 0; canDash = false; break;
+        case 'r': playerSprite.setPosition(currentPosition + sf::Vector2f(50, 0)); timeDash = 0; canDash = false; break;
+        default:
+            break;
+        }
     }
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {

@@ -24,6 +24,9 @@ public:
 	int critRate;
 	int enemyKilled;
 	int isCrit;
+	bool canDash;
+
+	int timeDash;
 
 	int isBreak;
 
