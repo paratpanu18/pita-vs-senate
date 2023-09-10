@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 #include "Game.h"
 #include "HighScore.h"
+#include "GameWin.h"
 
 MainMenu::MainMenu(int height, int widgth, sf::RenderWindow& window)
 {
@@ -130,6 +131,14 @@ void MainMenu::Update(sf::Event& event, sf::RenderWindow& window)
 			if ((event.key.code == sf::Keyboard::S) || (event.key.code == sf::Keyboard::Down)) {
 				moveDown();
 			}
+
+			// Cheat
+			if ((event.key.code == sf::Keyboard::C)) {
+				window.clear(sf::Color::Black);
+				bgMusic.stop();
+				GameWin win(800, 600, window, 250);
+			}
+			
 
 			// Enter
 			if (event.key.code == sf::Keyboard::Return) {
