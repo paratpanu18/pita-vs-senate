@@ -79,7 +79,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
     }
 
     for (int i = 0; i < maxEnemy; i++) {
-        Senate[i].Update(pita.hp, pita.maxHP);
+        Senate[i].Update(pita.hp, pita.maxHP, pita.atk, pita.spd);
     }
 
     if (pita.enemyKilled >= 200 && isWaveBuff[3] == false) {

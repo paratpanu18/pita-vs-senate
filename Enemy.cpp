@@ -20,6 +20,7 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
             enemySprite.setOrigin(16, 16);
             maxHP = inputHP * 2;
             HP = maxHP;
+            type = 1;
     }
     else {
             std::cout << "Enemy texture loaded successfully" << std::endl;
@@ -30,6 +31,7 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
             enemySprite.setOrigin(16, 16);
             HP = inputHP;
             maxHP = inputHP;
+            type = 0;
     }
 
     if (!statusFont.loadFromFile("Assets/Font/Anakotmai-Medium.otf")) {
@@ -46,7 +48,7 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
 
 }
 
-void Enemy::Update(int &playerHP, int playerMaxHP) {
+void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerSpd) {
     if (enemySprite.getPosition().y < 600) {
         enemySprite.setPosition(enemySprite.getPosition().x, enemySprite.getPosition().y + spd);
     }
@@ -61,6 +63,17 @@ void Enemy::Update(int &playerHP, int playerMaxHP) {
         enemyStatus = 0;
         if (playerHP < playerMaxHP) {
             playerHP += 1;
+        }
+        if (type == 1) {  
+            int buff = rand() % 3;
+            switch (buff)
+            {
+            case 0: playerMaxHP += 3; playerHP += 2; break;
+            case 1: playerAtk += 2; break;
+            case 3: playerSpd += 1; break;
+            default:
+                break;
+            }
         }
     }
 
