@@ -11,7 +11,7 @@ sf::Image icon;
 
 int WinMain() {
 
-    icon.loadFromFile("Assets/bullet.png");
+    icon.loadFromFile("Assets/icon.png");
 
     // ------------- WINDOWS INIT ------------------
     sf::ContextSettings settings;
