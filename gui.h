@@ -33,10 +33,14 @@ public:
 	sf::Texture critIconTexture;
 	sf::Sprite critIcon;
 
+	sf::Text popUpText;
+	sf::Clock clock;
 
 	void Init();
 	void Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilled, int wave);
 	void Draw(sf::RenderWindow& window);
+
+	void showText(std::string text, sf::Color color, int fontSize, int x, int y);
 
 };
 

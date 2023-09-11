@@ -79,7 +79,7 @@ void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerS
             int buff = rand() % 3;
             switch (buff)
             {
-            case 0: playerMaxHP += 3; playerHP += 2; break;
+            case 0: playerMaxHP += 3; playerHP += 3; break;
             case 1: playerAtk += 2; break;
             case 3: playerSpd += 1; break;
             default:
