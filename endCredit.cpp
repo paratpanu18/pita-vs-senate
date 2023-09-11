@@ -15,12 +15,12 @@ endCredit::endCredit(sf::RenderWindow& window, sf::Music& bgm)
 
     role.setFont(font);
     role.setCharacterSize(16);
-    role.setString("Thanks for playing !\n\n\n\nHead Game Developer\n\n\n\nGame Programmer\n\n\n\nBug Fixer\n\n\n\nGame Tester\n\n\n\n\nGame Graphics & GUI designer\n\n\n\nExternal Code Contributer\n\n\n\n\n\n\nGraphics\n\n\n\n\nMusic & Sound\n\n\n\n\n\n\nBefore the game really end...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPita VS Senate by...");
+    role.setString("Thanks for playing !\n\n\n\nHead Game Developer\n\n\n\nGame Programmer\n\n\n\nBug Fixer\n\n\n\nGame Tester\n\n\n\n\n\nGame Graphics & GUI designer\n\n\n\nExternal Code Contributer\n\n\n\n\n\n\nGraphics\n\n\n\n\nMusic & Sound\n\n\n\n\n\n\nBefore the game really end...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPita VS Senate by...");
     role.setFillColor(sf::Color::Yellow);
 
     credit.setFont(font);
     credit.setCharacterSize(16);
-    credit.setString("I am really appreciated, and hope this project got A\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\nPearapat Kumsing\n\n\n\nParatpanu Pechsaman\n\n\n\nChatGPT 3.5\nGitHub Copilot\nStackOverFlow\nGitHub\n\n\n\nitch.io/game-assets/ (Use for educational purpose)\nHonkai StarRail - Status Icon GUI\n\n\n\nToby Fox - Hope and Dream (Undertale OST)\nHoyomix - Fontaine Battle Theme 2\nThanathorn Juangroongruangkit - 'Thoong Fun Wan Mai'\nPrayuth Chan-o-cha - 'Give happiness back to people'\n\n\n\nI'd like to say 'Thank you' to all the coffee I drank,\nAll the friends who help me on this project (Even they know or not).\n\nLastly... I hope Thailand's political situation goes better than today,\nAnd hope that one day... We'll have something really called 'Democracy'\n\n\n\n\n\n\n\n\n\n\n\nParatpanu Pechsaman\nStudent ID: 66010542\nComputer Engineering (CE62), KMITL.");
+    credit.setString("I am really appreciated, and hope this project got A\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\nPearapat Kumsing\nPipatpong Pnapruake\n\n\n\nParatpanu Pechsaman\n\n\n\nChatGPT 3.5\nGitHub Copilot\nStackOverFlow\nGitHub\n\n\n\nitch.io/game-assets/ (Use for educational purpose)\nHonkai StarRail - Status Icon GUI\n\n\n\nToby Fox - Hope and Dream (Undertale OST)\nHoyomix - Fontaine Battle Theme 2\nThanathorn Juangroongruangkit - 'Thoong Fun Wan Mai'\nPrayuth Chan-o-cha - 'Give happiness back to people'\n\n\n\nI'd like to say 'Thank you' to all the coffee I drank,\nAll the friends who help me on this project (Even they know or not).\n\nLastly... I hope Thailand's political situation goes better than today,\nAnd hope that one day... We'll have something really called 'Democracy'\n\n\n\n\n\n\n\n\n\n\n\nParatpanu Pechsaman\nStudent ID: 66010542\nComputer Engineering (CE62), KMITL.");
     credit.setFillColor(sf::Color::White);
 
     creditTitle.setFont(font);
