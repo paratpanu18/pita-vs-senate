@@ -197,7 +197,7 @@ void Player::checkIfBulletHit(sf::Sprite enemySprite, int &HP)
                 isCrit = 0;
 
                 bulletStatus[i] = 0;
-                if (HP - totalATK < 0) {
+                if (HP - totalATK <= 0) {
                     enemyKilled++;
                     HP -= totalATK;
                     break;

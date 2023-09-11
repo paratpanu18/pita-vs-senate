@@ -18,7 +18,7 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
             enemySprite.setScale(sf::Vector2f(1.5f, 1.5f));
             enemySprite.setPosition(x, y);
             enemySprite.setOrigin(16, 16);
-            maxHP = inputHP * 2;
+            maxHP = inputHP * 3;
             HP = maxHP;
             type = 1;
     }
@@ -89,8 +89,13 @@ void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerS
     }
 
     if (enemySprite.getPosition().y >= 600) {
-        enemyStatus = 0;
-        playerHP-=ATK;
+        if (type == 1) {
+            playerHP -= 100000; // Super Senate Instant dead
+        }
+        else {
+            enemyStatus = 0;
+            playerHP-=ATK;
+        }
     }
 
     statusText.setPosition(enemySprite.getPosition().x - 6, enemySprite.getPosition().y - 40);
