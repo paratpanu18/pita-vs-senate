@@ -75,7 +75,7 @@ void gui::Init()
 	senateKilled.setString("0 / 250");
 	senateKilled.setCharacterSize(30);
 	senateKilled.setPosition(650, 10);
-	senateKilled.setFillColor(sf::Color::White);
+	senateKilled.setFillColor(sf::Color::Yellow);
 
 	waveDetail.setFont(font);
 	waveDetail.setString(" ");
