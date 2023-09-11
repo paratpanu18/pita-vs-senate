@@ -44,6 +44,14 @@ public:
 	void healFull();
 	void skipWave(int num);
 
+	sf::Time frameTimeBullet;
+	sf::Clock frameClockBullet;
+	int currentFrameBullet = 0;
+
+	sf::Time frameTimePlayer;
+	sf::Clock frameClockPlayer;
+	int currentFramePlayer = 0;
+
 	void buff(int hp, int maxHP, int atk, int spd, int critRate);
 	
 };

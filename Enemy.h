@@ -27,4 +27,7 @@ public:
 
 
 	sf::Sprite enemySprite;
+	sf::Time frameTime;
+	sf::Clock frameClock;
+	int currentFrame = 0;
 };

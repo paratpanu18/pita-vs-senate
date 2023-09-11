@@ -53,6 +53,17 @@ void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerS
         enemySprite.setPosition(enemySprite.getPosition().x, enemySprite.getPosition().y + spd);
     }
 
+    frameTime = sf::seconds(0.2f);
+
+    if (frameClock.getElapsedTime() >= frameTime) {
+        frameClock.restart();
+        currentFrame = ((currentFrame + 1) % 3);
+        switch (type) {
+        case 0: enemySprite.setTextureRect(sf::IntRect(currentFrame * 32, 224, 32, 32)); break;
+        case 1: enemySprite.setTextureRect(sf::IntRect(currentFrame * 32, 256, 32, 32)); break;
+        }
+    }
+
     float hpRatio = (float)HP / (float)maxHP;
 
     if (hpRatio >= 0.6f) statusText.setFillColor(sf::Color::Green);

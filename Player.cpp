@@ -28,11 +28,11 @@ void Player::Load(int inputHP) {
         std::cout << "!!! Player texture failed to load !!!" << std::endl;
     }
 
-    if (bulletTexture.loadFromFile("Assets/bullet.png")) {
+    if (bulletTexture.loadFromFile("Assets/fireball.png")) {
         
     }
     else {
-        std::cout << "!!! Player texture failed to load !!!" << std::endl;
+        std::cout << "!!! Bullet texture failed to load !!!" << std::endl;
     }
 
     facing = 'u';
@@ -49,8 +49,9 @@ void Player::Load(int inputHP) {
     for (int i = 0; i < maxBullet; i++) {
         std::cout << "Bullet" << i << "texture loaded successfully" << std::endl;
         bullet[i].setTexture(bulletTexture);
-        bullet[i].setTextureRect(sf::IntRect(0, 0, 20, 20));
-        bullet[i].setOrigin(10, 10);
+        bullet[i].setScale(1, 1);
+        bullet[i].setTextureRect(sf::IntRect(0, 0, 64, 64));
+        bullet[i].setOrigin(32,32);
         bulletStatus[i] = 0;
     }
 
@@ -65,29 +66,37 @@ void Player::Update() {
     if (timeDash < 30) timeDash++;
     else if (timeDash >= 30) canDash = true;
 
+    frameTimePlayer = sf::seconds(0.2f);
+
+    if (frameClockPlayer.getElapsedTime() >= frameTimePlayer) {
+        frameClockPlayer.restart();
+        currentFramePlayer = ((currentFramePlayer + 1) % 6);
+    }
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && currentPosition.y - spd > 48) {
-        playerSprite.setTextureRect(sf::IntRect(0, 96, 48, 48));
+        
+        playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 96, 48, 48));
         playerSprite.setScale(2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(0, -spd));
         facing = 'u';
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && currentPosition.x - spd > 0) {
-        playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48));
+        playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
         playerSprite.setScale(-2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(-spd, 0));
         facing = 'l';
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && currentPosition.y + spd < 600 - 48) {
-        playerSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
+        playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 0, 48, 48));
         playerSprite.setScale(2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(0, spd));
         facing = 'd';
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && currentPosition.x + spd < 800) {
-        playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48));
+        playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
         playerSprite.setScale(2, 2);
         playerSprite.setPosition(currentPosition + sf::Vector2f(spd, 0));
         facing = 'r';
@@ -129,24 +138,36 @@ void Player::Update() {
         }
     }
 
+    frameTimeBullet = sf::seconds(0.2f);
+
+    if (frameClockBullet.getElapsedTime() >= frameTimeBullet) {
+        frameClockBullet.restart();
+        currentFrameBullet = ((currentFrameBullet + 1) % 8);
+    }
+
+
+
     for (int i = 0; i < maxBullet; i++) {
 
         if (bulletStatus[i] == 1 && bullet[i].getPosition().y > 0 && bullet[i].getPosition().y < 600 && bullet[i].getPosition().x > 0 && bullet[i].getPosition().x < 800) {
             int bulletX = bullet[i].getPosition().x;
             int bulletY = bullet[i].getPosition().y;
 
-
             if (bulletDir[i] == 'u') {
                 bullet[i].setPosition(sf::Vector2f(bulletX, bulletY - bulletSpeed));
+                bullet[i].setTextureRect(sf::IntRect(currentFrameBullet * 64, 128, 64, 64));
             }
             else if (bulletDir[i] == 'd') {
                 bullet[i].setPosition(sf::Vector2f(bulletX, bulletY + bulletSpeed));
+                bullet[i].setTextureRect(sf::IntRect(currentFrameBullet * 64, 384, 64, 64));
             }
             else if (bulletDir[i] == 'l') {
                 bullet[i].setPosition(sf::Vector2f(bulletX - bulletSpeed, bulletY));
+                bullet[i].setTextureRect(sf::IntRect(currentFrameBullet * 64, 0, 64, 64));
             }
             else if (bulletDir[i] == 'r') {
                 bullet[i].setPosition(sf::Vector2f(bulletX + bulletSpeed, bulletY));
+                bullet[i].setTextureRect(sf::IntRect(currentFrameBullet * 64, 256, 64, 64));
             }
 
         }
