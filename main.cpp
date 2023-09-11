@@ -6,12 +6,19 @@
 
 #include "MainMenu.h"
 
-int main() {
+
+sf::Image icon;
+
+int WinMain() {
+
+    icon.loadFromFile("Assets/bullet.png");
+
     // ------------- WINDOWS INIT ------------------
     sf::ContextSettings settings;
     settings.antialiasingLevel = 4;
     sf::RenderWindow window(sf::VideoMode(800, 600), "Pita vs. Senate - The battle of the past and the future", sf::Style::Close, settings);
     window.setFramerateLimit(30);
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     // ------------- WINDOWS INIT ------------------
 
     // Start game @ Main Menu

@@ -4,8 +4,7 @@
 #include "Player.h"
 
 
-class gui
-{
+class gui {
 public:
 
 	sf::RectangleShape statusBox;

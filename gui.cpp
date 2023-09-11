@@ -124,15 +124,6 @@ void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int sena
 	}
 
 	// ------------- Progress -------------
-
-	
-
-
-
-
-
-
-
 }
 
 void gui::Draw(sf::RenderWindow& window)
