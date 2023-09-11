@@ -57,6 +57,7 @@ void Player::Load(int inputHP) {
 
     shootSoundBuffer.loadFromFile("Assets/SFX/bulletShoot.mp3");
     shootSound.setBuffer(shootSoundBuffer);
+    shootSound.setVolume(50);
 }
 
 void Player::Update() {

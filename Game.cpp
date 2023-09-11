@@ -51,7 +51,7 @@ Game::Game(sf::RenderWindow& window) {
 
     wavePassSoundBuffer.loadFromFile("Assets/SFX/wavePass.mp3");
     wavePassSound.setBuffer(wavePassSoundBuffer);
-    wavePassSound.setVolume(40);
+    wavePassSound.setVolume(100);
 
     GameLoop(window);
 }
