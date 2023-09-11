@@ -31,6 +31,9 @@ public:
 
 	int isGameClose;
 
+	sf::SoundBuffer wavePassSoundBuffer;
+	sf::Sound wavePassSound;
+
 	sf::Music bgmMusic;
 };
 

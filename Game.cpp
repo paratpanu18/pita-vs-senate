@@ -49,6 +49,10 @@ Game::Game(sf::RenderWindow& window) {
 
     pita.enemyKilled = 49;
 
+    wavePassSoundBuffer.loadFromFile("Assets/SFX/wavePass.mp3");
+    wavePassSound.setBuffer(wavePassSoundBuffer);
+    wavePassSound.setVolume(40);
+
     GameLoop(window);
 }
 
@@ -90,6 +94,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         pita.healFull();
         maxEnemy = 20;
         gui.showText("Wave 5/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20);
+        wavePassSound.play();
         isWaveBuff[3] = true;
     }
     else if (pita.enemyKilled >= 150 && pita.enemyKilled <= 199 && isWaveBuff[2] == false) {
@@ -99,6 +104,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         pita.healFull();
         maxEnemy = 15;
         gui.showText("Wave 4/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20);
+        wavePassSound.play();
         isWaveBuff[2] = true;
     }
     else if (pita.enemyKilled >= 100 && pita.enemyKilled <= 149 &&  isWaveBuff[1] == false) {
@@ -107,6 +113,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
         pita.healFull();
         gui.showText("Wave 3/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20);
+        wavePassSound.play();
         isWaveBuff[1] = true;
     }
     else if (pita.enemyKilled >= 50 && pita.enemyKilled <= 99 && isWaveBuff[0] == false) {
@@ -116,6 +123,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         pita.healFull();
         maxEnemy = 10;
         gui.showText("Wave 2/5 | MaxHP +50 | ATK +50 | CRIT +10%", sf::Color::Red, 20, 20, 20);
+        wavePassSound.play();
         isWaveBuff[0] = true;
     }
 
