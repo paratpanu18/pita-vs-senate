@@ -137,8 +137,8 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
 
     for (int i = 0; i < maxEnemy; i++) {
         if (Senate[i].enemyStatus == 0) {
-            int x = (rand() % 700) + 50;
-            int y = (rand() % 50);
+            int x = (rand() % 750) + 20;
+            int y = (rand() % 100) - 50;
             int hp = (rand() % 50) + hpMultiplier;
             int prob = rand() % 100;
 
