@@ -55,7 +55,8 @@ void Player::Load(int inputHP) {
         bulletStatus[i] = 0;
     }
 
-    shootSFX.openFromFile("Assets/SFX/bulletShoot.mp3");
+    shootSoundBuffer.loadFromFile("Assets/SFX/bulletShoot.mp3");
+    shootSound.setBuffer(shootSoundBuffer);
 }
 
 void Player::Update() {
@@ -253,5 +254,5 @@ void Player::fireBullet(int bulletNum) {
     bullet[bulletNum].setPosition(sf::Vector2f(playerSprite.getPosition()));
 
     bulletDir[bulletNum] = facing;
-    shootSFX.play();
+    shootSound.play();
 }

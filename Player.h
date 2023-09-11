@@ -32,6 +32,8 @@ public:
 
 	sf::Music shootSFX;
 
+	sf::SoundBuffer shootSoundBuffer;
+	sf::Sound shootSound;
 
 public:
 	void Init(); // Call once
