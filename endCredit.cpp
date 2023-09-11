@@ -41,7 +41,7 @@ endCredit::endCredit(sf::RenderWindow& window, sf::Music& bgm)
     sf::Vector2f textPosition(50, window.getSize().y + 160);
 
     // Scroll speed in pixels per second
-    float scrollSpeed = 25.0f;
+    float scrollSpeed = 35.0f;
 
     sf::Clock clock;
     bool creditsFinished = false; // Flag to track when credits finish
