@@ -44,6 +44,14 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
         statusText.setFillColor(sf::Color::White);
         statusText.setPosition(enemySprite.getPosition().x - 10, enemySprite.getPosition().y - 20);
         statusText.setString(std::to_string(maxHP));
+
+        hpBar.setSize(sf::Vector2f(30, 2));
+        hpBar.setFillColor(sf::Color::Green);
+        hpBar.setOrigin(0, 0);
+
+        hpBarBack.setSize(sf::Vector2f(30, 2));
+        hpBarBack.setFillColor(sf::Color::Black);
+        hpBarBack.setOrigin(0, 0);
     }
 
 }
@@ -69,7 +77,20 @@ void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerS
     if (hpRatio >= 0.6f) statusText.setFillColor(sf::Color::Green);
     else if (hpRatio >= 0.4f && hpRatio < 0.6f) statusText.setFillColor(sf::Color::Yellow);
     else if (hpRatio < 0.4f) statusText.setFillColor(sf::Color::Red);
+
+    if (hpRatio >= 0.6f) hpBar.setFillColor(sf::Color::Green);
+    else if (hpRatio >= 0.4f && hpRatio < 0.6f) hpBar.setFillColor(sf::Color::Yellow);
+    else if (hpRatio < 0.4f) hpBar.setFillColor(sf::Color::Red);
     
+    statusText.setPosition(enemySprite.getPosition().x - 6, enemySprite.getPosition().y - 50);
+    statusText.setString(std::to_string(HP));
+
+    hpBar.setPosition(enemySprite.getPosition().x - 15, enemySprite.getPosition().y - 30);
+    hpBar.setSize(sf::Vector2f(hpRatio * 30.f, 2));
+    hpBarBack.setPosition(enemySprite.getPosition().x - 15, enemySprite.getPosition().y - 30);
+
+
+
     if (HP <= 0) {
         enemyStatus = 0;
         if (playerHP < playerMaxHP) {
@@ -97,15 +118,14 @@ void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerS
             playerHP-=ATK;
         }
     }
-
-    statusText.setPosition(enemySprite.getPosition().x - 6, enemySprite.getPosition().y - 40);
-    statusText.setString(std::to_string(HP));
 }
 
 void Enemy::Draw(sf::RenderWindow& window) {
     if (enemyStatus == 1) {
         window.draw(statusText);
         window.draw(enemySprite);
+        window.draw(hpBarBack);
+        window.draw(hpBar);
     }
     
     

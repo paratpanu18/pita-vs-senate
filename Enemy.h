@@ -17,6 +17,9 @@ public:
 	sf::Font statusFont;
 	sf::Text statusText;
 
+	sf::RectangleShape hpBar;
+	sf::RectangleShape hpBarBack;
+
 	int maxHP;
 	int HP;
 	int enemyStatus;
