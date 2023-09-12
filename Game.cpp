@@ -93,7 +93,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
         pita.healFull();
         maxEnemy = 20;
-        gui.showText("Wave 5/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20);
+        gui.showText("Wave 5/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20, 3, sf::Color::White, 5);
         wavePassSound.play();
         isWaveBuff[3] = true;
     }
@@ -103,7 +103,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
         pita.healFull();
         maxEnemy = 15;
-        gui.showText("Wave 4/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20);
+        gui.showText("Wave 4/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20, 3, sf::Color::White, 5);
         wavePassSound.play();
         isWaveBuff[2] = true;
     }
@@ -112,7 +112,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         hpMultiplier = 300;
         pita.buff(0, 0, 50, 1, 10); // HP maxHP ATK SPD CRIT
         pita.healFull();
-        gui.showText("Wave 3/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20);
+        gui.showText("Wave 3/5 | ATK +50 | SPD +1 | CRIT +10%", sf::Color::Red, 20, 20, 20, 3, sf::Color::White, 5);
         wavePassSound.play();
         isWaveBuff[1] = true;
     }
@@ -122,7 +122,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         pita.buff(0, 50, 50, 1, 10); // HP maxHP ATK SPD CRIT
         pita.healFull();
         maxEnemy = 10;
-        gui.showText("Wave 2/5 | MaxHP +50 | ATK +50 | CRIT +10%", sf::Color::Red, 20, 20, 20);
+        gui.showText("Wave 2/5 | MaxHP +50 | ATK +50 | CRIT +10%", sf::Color::Red, 20, 20, 20, 3, sf::Color::White, 5);
         wavePassSound.play();
         isWaveBuff[0] = true;
     }
