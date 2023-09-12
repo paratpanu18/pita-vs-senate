@@ -35,11 +35,14 @@ public:
 	sf::Text popUpText;
 	sf::Clock clock;
 
+	int durationPtr;
+
+
 	void Init();
 	void Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilled, int wave);
 	void Draw(sf::RenderWindow& window);
 
-	void showText(std::string text, sf::Color color, int fontSize, int x, int y);
+	void showText(std::string text, sf::Color color, int fontSize, int x, int y, int outLineThickness, sf::Color outlineColor, int duration);
 
 };
 

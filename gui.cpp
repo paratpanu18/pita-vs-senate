@@ -83,10 +83,9 @@ void gui::Init()
 	waveDetail.setPosition(650, 60);
 	waveDetail.setFillColor(sf::Color::White);
 
-	// Pop up Text
+	// Popup Text
 	popUpText.setFont(font);
-	popUpText.setOutlineColor(sf::Color::White);
-	popUpText.setOutlineThickness(3);
+
 }
 
 void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilledAmout, int wave)
@@ -146,17 +145,22 @@ void gui::Draw(sf::RenderWindow& window)
 	window.draw(hpBarBG);
 	window.draw(hpBar);
 
-	if (clock.getElapsedTime().asSeconds() < 5) {
+	if (clock.getElapsedTime().asSeconds() < (int)durationPtr) {
 		window.draw(popUpText);
 	}
 }
 
-void gui::showText(std::string text, sf::Color color, int fontSize, int x, int y)
+void gui::showText(std::string text, sf::Color color, int fontSize, int x, int y, int outLineThickness, sf::Color outlineColor, int duration)
 {
+	durationPtr = duration;
+
 	popUpText.setString(text);
 	popUpText.setCharacterSize(fontSize);
 	popUpText.setPosition(x, y);
 	popUpText.setFillColor(color);
+	popUpText.setOutlineColor(outlineColor);
+	popUpText.setOutlineThickness(outLineThickness);
+
 
 	clock.restart();
 }
