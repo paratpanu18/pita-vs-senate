@@ -24,23 +24,10 @@ Game::Game(sf::RenderWindow& window) {
 
     srand(time(NULL));
 
-    /*
-    for (int i = 0; i < maxEnemy; i++) {
-
-        int x = (rand() % 700) + 50;
-        int y = (rand() % 50);
-        int hp = (rand() % 50) + hpMultiplier;
-        int prob = rand() % 100;
-
-        Senate[i].Load(x, y, hp, prob);
-        Senate[i].ATK = 3;
-    }
-    */
-
     isGameOver = 0;
     gui.Init();
 
-    bg.loadFromFile("Assets/bg.jpg");
+    bg.loadFromFile("Assets/gameBG.png");
     bgSprite.setTexture(bg);
 
     bgmMusic.openFromFile("Assets/BGM/gameBGM.mp3");
@@ -175,7 +162,6 @@ void Game::Draw(sf::RenderWindow& window)
         for (int i = 0; i < maxEnemy; i++) {
             Senate[i].Draw(window);
         }
-
 
         gui.Draw(window);
 
