@@ -30,6 +30,10 @@ public:
 
 	int isBreak;
 
+	sf::Clock stunClock;
+	bool isPlayerStun;
+	
+
 	sf::Music shootSFX;
 
 	sf::SoundBuffer shootSoundBuffer;

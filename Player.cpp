@@ -70,74 +70,78 @@ void Player::Update() {
 
     frameTimePlayer = sf::seconds(0.2f);
 
-    if (frameClockPlayer.getElapsedTime() >= frameTimePlayer) {
-        frameClockPlayer.restart();
-        currentFramePlayer = ((currentFramePlayer + 1) % 6);
-    }
+    if (!isPlayerStun) {
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && currentPosition.y - spd > 48) {
-        
-        playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 96, 48, 48));
-        playerSprite.setScale(2, 2);
-        playerSprite.setPosition(currentPosition + sf::Vector2f(0, -spd));
-        facing = 'u';
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && currentPosition.x - spd > 0) {
-        playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
-        playerSprite.setScale(-2, 2);
-        playerSprite.setPosition(currentPosition + sf::Vector2f(-spd, 0));
-        facing = 'l';
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && currentPosition.y + spd < 600 - 48) {
-        playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 0, 48, 48));
-        playerSprite.setScale(2, 2);
-        playerSprite.setPosition(currentPosition + sf::Vector2f(0, spd));
-        facing = 'd';
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && currentPosition.x + spd < 800) {
-        playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
-        playerSprite.setScale(2, 2);
-        playerSprite.setPosition(currentPosition + sf::Vector2f(spd, 0));
-        facing = 'r';
-    }
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && canDash) {
-        switch (facing)
-        {
-        case 'u': playerSprite.setPosition(currentPosition + sf::Vector2f(0, -50)); timeDash = 0; canDash = false; break;
-        case 'd': playerSprite.setPosition(currentPosition + sf::Vector2f(0, 50)); timeDash = 0; canDash = false; break;
-        case 'l': playerSprite.setPosition(currentPosition + sf::Vector2f(-50, 0)); timeDash = 0; canDash = false; break;
-        case 'r': playerSprite.setPosition(currentPosition + sf::Vector2f(50, 0)); timeDash = 0; canDash = false; break;
-        default:
-            break;
+        if (frameClockPlayer.getElapsedTime() >= frameTimePlayer) {
+            frameClockPlayer.restart();
+            currentFramePlayer = ((currentFramePlayer + 1) % 6);
         }
-    }
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        for (int i = 0; i < maxBullet; i++) {
-            if (isBreak == 1) { isBreak = 0; break; }
-            if (bulletStatus[i] == 0) {
-                bool canFire = true;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && currentPosition.y - spd > 48) {
 
-                for (int j = 0; j < maxBullet; j++) {
-                    if (i == j || bulletStatus[j] == 0) continue;
-                    else if (findLen(bullet[i], bullet[j]) < 20) {
-                        canFire = false;
+            playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 96, 48, 48));
+            playerSprite.setScale(2, 2);
+            playerSprite.setPosition(currentPosition + sf::Vector2f(0, -spd));
+            facing = 'u';
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && currentPosition.x - spd > 0) {
+            playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
+            playerSprite.setScale(-2, 2);
+            playerSprite.setPosition(currentPosition + sf::Vector2f(-spd, 0));
+            facing = 'l';
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && currentPosition.y + spd < 600 - 48) {
+            playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 0, 48, 48));
+            playerSprite.setScale(2, 2);
+            playerSprite.setPosition(currentPosition + sf::Vector2f(0, spd));
+            facing = 'd';
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && currentPosition.x + spd < 800) {
+            playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
+            playerSprite.setScale(2, 2);
+            playerSprite.setPosition(currentPosition + sf::Vector2f(spd, 0));
+            facing = 'r';
+        }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && canDash) {
+            switch (facing)
+            {
+            case 'u': playerSprite.setPosition(currentPosition + sf::Vector2f(0, -50)); timeDash = 0; canDash = false; break;
+            case 'd': playerSprite.setPosition(currentPosition + sf::Vector2f(0, 50)); timeDash = 0; canDash = false; break;
+            case 'l': playerSprite.setPosition(currentPosition + sf::Vector2f(-50, 0)); timeDash = 0; canDash = false; break;
+            case 'r': playerSprite.setPosition(currentPosition + sf::Vector2f(50, 0)); timeDash = 0; canDash = false; break;
+            default:
+                break;
+            }
+        }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            for (int i = 0; i < maxBullet; i++) {
+                if (isBreak == 1) { isBreak = 0; break; }
+                if (bulletStatus[i] == 0) {
+                    bool canFire = true;
+
+                    for (int j = 0; j < maxBullet; j++) {
+                        if (i == j || bulletStatus[j] == 0) continue;
+                        else if (findLen(bullet[i], bullet[j]) < 20) {
+                            canFire = false;
+                            isBreak = 1;
+                            break;
+                        }
+                    }
+
+                    if (canFire) {
+                        fireBullet(i);
                         isBreak = 1;
                         break;
                     }
                 }
-
-                if (canFire) {
-                    fireBullet(i);
-                    isBreak = 1;
-                    break;
-                }
             }
         }
+
     }
 
     frameTimeBullet = sf::seconds(0.2f);
@@ -206,6 +210,25 @@ void Player::checkIfBulletHit(sf::Sprite enemySprite, int &HP)
                 continue;
             }
         }
+    }
+
+    if (playerSprite.getGlobalBounds().intersects(enemyHitbox) && !isPlayerStun && stunClock.getElapsedTime().asSeconds() > 1) {
+        isPlayerStun = true;
+        playerSprite.setTextureRect(sf::IntRect(96, 432, 48, 48));
+        stunClock.restart();
+    }
+    
+    if (stunClock.getElapsedTime().asSeconds() > 0.5f) {
+        switch (facing)
+        {
+        case 'u': playerSprite.setTextureRect(sf::IntRect(0, 96, 48, 48)); break;
+        case 's': playerSprite.setTextureRect(sf::IntRect(0, 0, 48, 48)); break;
+        case 'l': playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48)); playerSprite.setScale(-2, 2); break;
+        case 'r': playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48)); break;
+        default:
+            break;
+        }
+        isPlayerStun = false;
     }
     
 }
