@@ -3,7 +3,7 @@
 #include <math.h>
 #include "Player.h"
 
-#define bulletSpeed 5
+#define bulletSpeed 6
 
 sf::Vector2f normalizeVector(sf::Vector2f vector) {
     float vectorMagnitude = std::sqrt(vector.x * vector.x + vector.y * vector.y);
@@ -106,7 +106,7 @@ void Player::Update() {
             facing = 'r';
         }
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && canDash) {
+        if ((sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) && canDash) {
             switch (facing)
             {
             case 'u': playerSprite.setPosition(currentPosition + sf::Vector2f(0, -50)); timeDash = 0; canDash = false; break;
