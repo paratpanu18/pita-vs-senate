@@ -1,6 +1,6 @@
 # Pita vs. Senate
 Pita vs. Senate is an 2D-RPG game inspired by Thailand's political situation.
-![Screenshot](Assets/menuBackground.jpg)
+![Screenshot](Assets/Player/pita-vs-senate-800-600-full.png)
 
 # Technical Specification
 Using C++ with SFML Lib <br/>
