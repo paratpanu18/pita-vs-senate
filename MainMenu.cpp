@@ -15,7 +15,7 @@ MainMenu::MainMenu(int height, int widgth, sf::RenderWindow& window)
 	}
 
 	// Load background
-	if (!bgTexture.loadFromFile("Assets/menuBackground.jpg")) {
+	if (!bgTexture.loadFromFile("Assets/menuBackground2.png")) {
 		std::cout << "!!! MainMenu background failed to load !!!" << std::endl;
 	}
 	else {
@@ -30,38 +30,38 @@ MainMenu::MainMenu(int height, int widgth, sf::RenderWindow& window)
 
 	// Play button
 	menuButton[0].setFont(font);
-	menuButton[0].setFillColor(sf::Color::White);
-	menuButton[0].setOutlineColor(sf::Color(252, 107, 3));
-	menuButton[0].setOutlineThickness(5);
-	menuButton[0].setString("Play");
-	menuButton[0].setCharacterSize(30);
-	menuButton[0].setPosition(500, 300);
+	menuButton[0].setFillColor(sf::Color(242, 120, 0));
+	//menuButton[0].setOutlineColor(sf::Color(252, 107, 3));
+	//menuButton[0].setOutlineThickness(5);
+	menuButton[0].setString("    Play");
+	menuButton[0].setCharacterSize(20);
+	menuButton[0].setPosition(350, 350);
 
 
 	// Option button
 	menuButton[1].setFont(font);
 	menuButton[1].setFillColor(sf::Color::White);
-	menuButton[1].setOutlineColor(sf::Color::Blue);
-	menuButton[1].setOutlineThickness(5);
+	//menuButton[1].setOutlineColor(sf::Color::Blue);
+	//menuButton[1].setOutlineThickness(5);
 	menuButton[1].setString("Scoreboard");
-	menuButton[1].setCharacterSize(30);
-	menuButton[1].setPosition(500, 350);
+	menuButton[1].setCharacterSize(20);
+	menuButton[1].setPosition(340, 400);
 
 	// Exit button
 	menuButton[2].setFont(font);
 	menuButton[2].setFillColor(sf::Color::White);
-	menuButton[2].setOutlineColor(sf::Color::Blue);
-	menuButton[2].setOutlineThickness(5);
+	//menuButton[2].setOutlineColor(sf::Color::Blue);
+	//menuButton[2].setOutlineThickness(5);
 	menuButton[2].setString("Exit Game");
-	menuButton[2].setCharacterSize(30);
-	menuButton[2].setPosition(500, 400);
+	menuButton[2].setCharacterSize(20);
+	menuButton[2].setPosition(345, 450);
 
 	//Credit
 	credit.setFont(font);
 	credit.setFillColor(sf::Color::White);
-	credit.setString("Paratpanu Pechsaman | 66010542 | Programming Project KMITL");
+	credit.setString("Paratpanu Pechsaman | 66010542 | Programming Fundamental KMITL");
 	credit.setCharacterSize(16);
-	credit.setPosition(30, 570);
+	credit.setPosition(125, 570);
 	credit.setOutlineColor(sf::Color::Black);
 	credit.setOutlineThickness(1);
 
@@ -89,13 +89,15 @@ void MainMenu::Draw(sf::RenderWindow& window)
 void MainMenu::moveUp()
 {
 	if (MainMenuSelected - 1 >= -1) {
-		menuButton[MainMenuSelected].setOutlineColor(sf::Color::Blue);
+		//menuButton[MainMenuSelected].setOutlineColor(sf::Color::Blue);
+		menuButton[MainMenuSelected].setFillColor(sf::Color::White);
 
 		MainMenuSelected--;
 		if (MainMenuSelected == -1) {
 			MainMenuSelected = 2;
 		}
-		menuButton[MainMenuSelected].setOutlineColor(sf::Color(252, 107, 3));
+		//menuButton[MainMenuSelected].setOutlineColor(sf::Color(252, 107, 3));
+		menuButton[MainMenuSelected].setFillColor(sf::Color(242, 120, 0));
 	}
 	clickSFX.play();
 }
@@ -103,13 +105,15 @@ void MainMenu::moveUp()
 void MainMenu::moveDown()
 {
 	if (MainMenuSelected + 1 <= 3) {
-		menuButton[MainMenuSelected].setOutlineColor(sf::Color::Blue);
+		//menuButton[MainMenuSelected].setOutlineColor(sf::Color::Blue);
+		menuButton[MainMenuSelected].setFillColor(sf::Color::White);
 
 		MainMenuSelected++;
 		if (MainMenuSelected == 3) {
 			MainMenuSelected = 0;
 		}
-		menuButton[MainMenuSelected].setOutlineColor(sf::Color(252, 107, 3));
+		//menuButton[MainMenuSelected].setOutlineColor(sf::Color(252, 107, 3));
+		menuButton[MainMenuSelected].setFillColor(sf::Color(242, 120, 0));
 	}
 
 	clickSFX.play();
