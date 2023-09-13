@@ -30,6 +30,12 @@ public:
 
 	int isBreak;
 
+	sf::Clock antiStunCD;
+	sf::Clock antiStunDuration;
+	bool antiStunActive;
+	bool canUseAntiStun;
+
+
 	sf::Clock stunClock;
 	bool isPlayerStun;
 	
@@ -38,6 +44,9 @@ public:
 
 	sf::SoundBuffer shootSoundBuffer;
 	sf::Sound shootSound;
+
+	sf::Texture antiStunActiveTexture;
+	sf::Sprite antiStunActiveEffect;
 
 public:
 	void Init(); // Call once

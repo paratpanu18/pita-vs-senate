@@ -28,6 +28,9 @@ void Player::Load(int inputHP) {
         std::cout << "!!! Player texture failed to load !!!" << std::endl;
     }
 
+    antiStunActiveTexture.loadFromFile("Assets/Player/Texture/antiStunActiveEffect.png");
+    antiStunActiveEffect.setTexture(antiStunActiveTexture);
+
     if (bulletTexture.loadFromFile("Assets/fireball.png")) {
         
     }
@@ -45,6 +48,9 @@ void Player::Load(int inputHP) {
 
     canDash = false;
     timeDash = 0;
+
+    antiStunActive = false;
+    canUseAntiStun = false;
 
     for (int i = 0; i < maxBullet; i++) {
         std::cout << "Bullet" << i << "texture loaded successfully" << std::endl;
@@ -70,7 +76,7 @@ void Player::Update() {
 
     frameTimePlayer = sf::seconds(0.2f);
 
-    if (!isPlayerStun) {
+    if (!isPlayerStun || antiStunActive) {
 
         if (frameClockPlayer.getElapsedTime() >= frameTimePlayer) {
             frameClockPlayer.restart();
@@ -142,6 +148,14 @@ void Player::Update() {
             }
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && canUseAntiStun) {
+            std::cout << "Anti Stun activated\n";
+            antiStunActive = true;
+            canUseAntiStun = false;
+            antiStunDuration.restart();
+            antiStunCD.restart();
+        }
+
     }
 
     frameTimeBullet = sf::seconds(0.2f);
@@ -181,6 +195,19 @@ void Player::Update() {
             bulletStatus[i] = 0;
         }
     }
+
+    if (antiStunCD.getElapsedTime().asSeconds() < 10) {
+        canUseAntiStun = false;
+    }
+    else if (antiStunCD.getElapsedTime().asSeconds() > 10 && !canUseAntiStun) {
+        canUseAntiStun = true; std::cout << "Anti Stun REady\n";
+    }
+
+    if (antiStunDuration.getElapsedTime().asSeconds() > 3 && antiStunActive) { antiStunActive = false; std::cout << "Inactivated\n"; }
+
+    if (antiStunActive) antiStunActiveEffect.setPosition(sf::Vector2f(playerSprite.getPosition().x - 24, playerSprite.getPosition().y + 5));
+
+
 }
 
 void Player::checkIfBulletHit(sf::Sprite enemySprite, int &HP)
@@ -212,7 +239,7 @@ void Player::checkIfBulletHit(sf::Sprite enemySprite, int &HP)
         }
     }
 
-    if (playerSprite.getGlobalBounds().intersects(enemyHitbox) && !isPlayerStun && stunClock.getElapsedTime().asSeconds() > 1) {
+    if (playerSprite.getGlobalBounds().intersects(enemyHitbox) && !isPlayerStun && stunClock.getElapsedTime().asSeconds() > 1 && !antiStunActive) {
         isPlayerStun = true;
         playerSprite.setTextureRect(sf::IntRect(96, 432, 48, 48));
         stunClock.restart();
@@ -259,6 +286,7 @@ void Player::buff(int inputhp, int inputmaxHP, int inputatk, int inputspd, int i
 }
 
 void Player::Draw(sf::RenderWindow& window) {
+    if (antiStunActive) window.draw(antiStunActiveEffect);
     window.draw(playerSprite);
 
     for (int i = 0; i < maxBullet; i++) {

@@ -147,7 +147,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         pita.checkIfBulletHit(Senate[i].getSprite(), Senate[i].HP);
     }
 
-    gui.Update(pita.hp, pita.atk, pita.spd, pita.critRate, pita.maxHP, pita.enemyKilled, wave);
+    gui.Update(pita.hp, pita.atk, pita.spd, pita.critRate, pita.maxHP, pita.enemyKilled, wave, pita.antiStunDuration.getElapsedTime().asSeconds());
 
 }
 

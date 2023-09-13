@@ -83,12 +83,22 @@ void gui::Init()
 	waveDetail.setPosition(650, 60);
 	waveDetail.setFillColor(sf::Color::White);
 
+	antiStunSkillTexture.loadFromFile("Assets/GUI/antiStun.png");
+	antiStunSkill.setTexture(antiStunSkillTexture);
+	antiStunSkill.setOrigin(0, 50);
+	antiStunSkill.setPosition(720, 560);
+
+	antiStunSkillCD.setOrigin(0, 50);
+	antiStunSkillCD.setFillColor(sf::Color(0, 0, 0, 100));
+	antiStunSkillCD.setSize(sf::Vector2f(50, 50));
+	antiStunSkillCD.setPosition(720, 560);
+
 	// Popup Text
 	popUpText.setFont(font);
 
 }
 
-void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilledAmout, int wave)
+void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int senateKilledAmout, int wave, float antiStunCD)
 {
 	// ------------- HP Bar -------------
 	int hpINT = hp;
@@ -123,6 +133,16 @@ void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int sena
 	}
 
 	// ------------- Progress -------------
+
+	// ------------ Anti Stun CD ----------
+	if (antiStunCD <= 10) {
+		this->antiStunSkillCD.setSize(sf::Vector2f(50.f, 50 - (antiStunCD/10.f) * 50.f));	
+	}
+	else {
+		this->antiStunSkillCD.setSize(sf::Vector2f(50.f, 0));
+	}
+	// ------------ Anti Stun CD ----------
+
 }
 
 void gui::Draw(sf::RenderWindow& window)
@@ -144,6 +164,9 @@ void gui::Draw(sf::RenderWindow& window)
 
 	window.draw(hpBarBG);
 	window.draw(hpBar);
+
+	window.draw(antiStunSkill);
+	window.draw(antiStunSkillCD);
 
 	if (clock.getElapsedTime().asSeconds() < (int)durationPtr) {
 		window.draw(popUpText);
