@@ -14,13 +14,13 @@ endCredit::endCredit(sf::RenderWindow& window, sf::Music& bgm)
     bg.setTexture(bgTexture);
 
     role.setFont(font);
-    role.setCharacterSize(16);
+    role.setCharacterSize(18);
     role.setString("Thanks for playing !\n\n\n\nHead Game Developer\n\n\n\nGame Programmer\n\n\n\nBug Fixer\n\n\n\nGame Tester\n\n\n\n\n\nGame Graphics & GUI designer\n\n\n\nExternal Code Contributer\n\n\n\n\n\n\nGraphics\n\n\n\n\nMusic & Sound\n\n\n\n\n\n\nBefore the game really end...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPita VS Senate by...");
     role.setFillColor(sf::Color::Yellow);
 
     credit.setFont(font);
-    credit.setCharacterSize(16);
-    credit.setString("I appreciate it a lot, and hope this project got A\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\nPearapat Kumsing\nPipatpong Pnapruake\n\n\n\nParatpanu Pechsaman\n\n\n\nChatGPT 3.5\nGitHub Copilot\nStackOverFlow\nGitHub\n\n\n\nitch.io/game-assets/ (Use for educational purpose)\nHonkai StarRail - Status Icon GUI\n\n\n\nToby Fox - Hope and Dream (Undertale OST)\nHoyomix - Fontaine Battle Theme 2\nThanathorn Juangroongruangkit - 'Thoong Fun Wan Mai'\nPrayuth Chan-o-cha - 'Give happiness back to people'\n\n\n\nI'd like to say 'Thank you' to all the coffee I drank,\nAll the friends who help me on this project (Even they know or not).\n\nLastly... I hope Thailand's political situation goes better than today,\nAnd hope that one day... We'll have something really called 'Democracy'\n\n\n\n\n\n\n\n\n\n\n\nParatpanu Pechsaman\nStudent ID: 66010542\nComputer Engineering (CE62), KMITL.");
+    credit.setCharacterSize(18);
+    credit.setString("I appreciate it a lot, and hope this project got A\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\n\n\n\nParatpanu Pechsaman\nPearapat Kumsing\nPipatpong Pnapruake\n\n\n\nParatpanu Pechsaman\n\n\n\nChatGPT 3.5\nGitHub Copilot\nStackOverFlow\nGitHub\n\n\n\nitch.io/game-assets/ (Use for educational purpose)\nHonkai StarRail - Status Icon GUI\n\n\n\nToby Fox - Hope and Dream (Undertale OST)\nHoyomix - Fontaine Battle Theme 2\nThanathorn Juangroongruangkit - 'Thoong Fun Wan Mai'\nPrayuth Chan-o-cha - 'Give happiness back to people'\n\n\n\nI'd like to say 'Thank you' to all the coffee I drank,\nAll the friends who helped me on this project (Even they know it or not).\n\nLastly... I hope Thailand's political situation goes better than today,\nAnd hope that one day... We'll have something really called 'Democracy'\n\n\n\n\n\n\n\n\n\n\n\nParatpanu Pechsaman\nStudent ID: 66010542\nComputer Engineering (CE62), KMITL.");
     credit.setFillColor(sf::Color::White);
 
     creditTitle.setFont(font);
@@ -32,13 +32,13 @@ endCredit::endCredit(sf::RenderWindow& window, sf::Music& bgm)
     pleaseProceed.setCharacterSize(18);
     pleaseProceed.setString("Press [ENTER] to proceed");
     pleaseProceed.setFillColor(sf::Color::Yellow);
-    pleaseProceed.setPosition(50, 550);
+    pleaseProceed.setPosition(window.getSize().x * 0.1f, 550);
 
 
     // Set the initial position of the text
-    sf::Vector2f titleTextPosition(50, window.getSize().y);
-    sf::Vector2f roleTextPosition(50, window.getSize().y + 130);
-    sf::Vector2f textPosition(50, window.getSize().y + 160);
+    sf::Vector2f titleTextPosition(window.getSize().x * 0.1f, window.getSize().y);
+    sf::Vector2f roleTextPosition(window.getSize().x * 0.1f, window.getSize().y + 130);
+    sf::Vector2f textPosition(window.getSize().x * 0.1f, window.getSize().y + 160);
 
     // Scroll speed in pixels per second
     float scrollSpeed = 35.0f;
