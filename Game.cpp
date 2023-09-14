@@ -129,8 +129,13 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
             int hp = (rand() % 50) + hpMultiplier;
             int prob = rand() % 100;
 
+            if (prob < 5) {
+                gui.showText("[ Super Senate ] Appear !!", sf::Color::Red, 40, 400, 70, 3, sf::Color::White, 3);
+            }
+
             Senate[i].Init();
             Senate[i].Load(x, y, hp, prob);
+
             switch (wave) {
             case 1: Senate[i].ATK = 3; break;
             case 2: Senate[i].ATK = 5; break;
