@@ -16,6 +16,7 @@ void Player::Init() {
 }
 
 void Player::Load(int inputHP) {
+    // Texture Init
     if (playerTexture.loadFromFile("Assets/Player/Texture/playerTexture.png")) {
         std::cout << "Player texture loaded successfully" << std::endl;
         playerSprite.setTexture(playerTexture);
@@ -38,6 +39,7 @@ void Player::Load(int inputHP) {
         std::cout << "!!! Bullet texture failed to load !!!" << std::endl;
     }
 
+    // Player Status Init
     facing = 'u';
     maxHP = inputHP;
     hp = inputHP;
@@ -45,13 +47,12 @@ void Player::Load(int inputHP) {
     critRate = 45;
     spd = 5;
     enemyKilled = 0;
-
     canDash = false;
-    timeDash = 0;
-
+    dashCD.restart();
     antiStunActive = false;
     canUseAntiStun = false;
 
+    // Bullet Texture Init
     for (int i = 0; i < maxBullet; i++) {
         std::cout << "Bullet" << i << "texture loaded successfully" << std::endl;
         bullet[i].setTexture(bulletTexture);
@@ -61,6 +62,13 @@ void Player::Load(int inputHP) {
         bulletStatus[i] = 0;
     }
 
+    // Dash CD Status Init
+    dashCDStatusBack.setSize(sf::Vector2f(3, 48));
+    dashCDStatusBack.setFillColor(sf::Color::Black);
+    dashCDStatus.setSize(sf::Vector2f(3, 48));
+    dashCDStatus.setFillColor(sf::Color(66, 176, 245));
+
+    // Sound Init
     shootSoundBuffer.loadFromFile("Assets/SFX/bulletShoot.mp3");
     shootSound.setBuffer(shootSoundBuffer);
     shootSound.setVolume(50);
@@ -71,8 +79,9 @@ void Player::Update() {
     sf::Vector2f currentPosition = playerSprite.getPosition();
     sf::Vector2f playerPosition = playerSprite.getPosition();
 
-    if (timeDash < 30) timeDash++;
-    else if (timeDash >= 30) canDash = true;
+    if (dashCD.getElapsedTime().asSeconds() > 2) {
+        canDash = true;
+    }
 
     frameTimePlayer = sf::seconds(0.2f);
 
@@ -115,10 +124,10 @@ void Player::Update() {
         if ((sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) && canDash) {
             switch (facing)
             {
-            case 'u': playerSprite.setPosition(currentPosition + sf::Vector2f(0, -50)); timeDash = 0; canDash = false; break;
-            case 'd': playerSprite.setPosition(currentPosition + sf::Vector2f(0, 50)); timeDash = 0; canDash = false; break;
-            case 'l': playerSprite.setPosition(currentPosition + sf::Vector2f(-50, 0)); timeDash = 0; canDash = false; break;
-            case 'r': playerSprite.setPosition(currentPosition + sf::Vector2f(50, 0)); timeDash = 0; canDash = false; break;
+            case 'u': playerSprite.setPosition(currentPosition + sf::Vector2f(0, -50)); dashCD.restart(); canDash = false; break;
+            case 'd': playerSprite.setPosition(currentPosition + sf::Vector2f(0, 50)); dashCD.restart(); canDash = false; break;
+            case 'l': playerSprite.setPosition(currentPosition + sf::Vector2f(-50, 0)); dashCD.restart(); canDash = false; break;
+            case 'r': playerSprite.setPosition(currentPosition + sf::Vector2f(50, 0)); dashCD.restart(); canDash = false; break;
             default:
                 break;
             }
@@ -207,6 +216,11 @@ void Player::Update() {
 
     if (antiStunActive) antiStunActiveEffect.setPosition(sf::Vector2f(playerSprite.getPosition().x - 24, playerSprite.getPosition().y + 5));
 
+    // Dash CD Status Update
+    dashCDStatusBack.setPosition(currentPosition + sf::Vector2f(30, -5));
+    dashCDStatus.setPosition(currentPosition + sf::Vector2f(30, -5));
+    dashCDStatus.setSize(sf::Vector2f(3, (dashCD.getElapsedTime().asSeconds() / 2.0f) * 48));
+
 
 }
 
@@ -293,6 +307,11 @@ void Player::Draw(sf::RenderWindow& window) {
         if (bulletStatus[i] == 1) {
             window.draw(bullet[i]);
         }
+    }
+
+    if (!canDash) {
+        window.draw(dashCDStatusBack);
+        window.draw(dashCDStatus);
     }
 }
 

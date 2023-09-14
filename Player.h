@@ -24,9 +24,11 @@ public:
 	int critRate;
 	int enemyKilled;
 	int isCrit;
+	
+	sf::Clock dashCD;
 	bool canDash;
-
-	int timeDash;
+	sf::RectangleShape dashCDStatusBack;
+	sf::RectangleShape dashCDStatus;
 
 	int isBreak;
 
