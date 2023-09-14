@@ -16,10 +16,13 @@ int main() {
     // ------------- WINDOWS INIT ------------------
     sf::ContextSettings settings;
     settings.antialiasingLevel = 4;
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Pita vs. Senate - The battle of the past and the future", sf::Style::Close, settings);
-    window.setFramerateLimit(30);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Pita vs. Senate - The battle of the past and the future", sf::Style::Close, settings);
+    window.setFramerateLimit(60);
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     // ------------- WINDOWS INIT ------------------
+
+    //window.setMouseCursorVisible(false);
+
 
     // Start game @ Main Menu
     MainMenu menu(window.getSize().x, window.getSize().y, window);
