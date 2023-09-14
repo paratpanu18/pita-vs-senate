@@ -21,26 +21,20 @@ HighScore::HighScore(sf::RenderWindow& window) {
         bg.setTexture(bgTexture);
     }
 
-   highScoreText.setFont(font);
-   highScoreText.setString("SCOREBOARD");
-   highScoreText.setFillColor(sf::Color::Yellow);
-   highScoreText.setCharacterSize(50);
-   highScoreText.setPosition(220, 50);
-
    std::vector<HighScoreEntry> highScores = LoadHighScores("highscores.oakkun");
    
        for (int i = 0; i < 5 && i < highScores.size(); i++) {
            HighScorePlayerName[i].setFont(font);
            HighScorePlayerName[i].setString(std::to_string(i+1) + " - " + highScores[i].playerName);
            HighScorePlayerName[i].setFillColor(sf::Color::White);
-           HighScorePlayerName[i].setCharacterSize(20);
-           HighScorePlayerName[i].setPosition(150, (i + 1) * 50 + 100);
+           HighScorePlayerName[i].setCharacterSize(30);
+           HighScorePlayerName[i].setPosition(window.getSize().x * 0.2f, window.getSize().y * (0.25f + 0.125f * i));
 
            HighScorePlayer[i].setFont(font);
            HighScorePlayer[i].setString("[ " + std::to_string(highScores[i].score) + " ]");
            HighScorePlayer[i].setFillColor(sf::Color::White);
-           HighScorePlayer[i].setCharacterSize(20);
-           HighScorePlayer[i].setPosition(600, (i + 1) * 50 + 100);
+           HighScorePlayer[i].setCharacterSize(30);
+           HighScorePlayer[i].setPosition(window.getSize().x * 0.75f, window.getSize().y * (0.25f + 0.125f * i));
        }
 
 
