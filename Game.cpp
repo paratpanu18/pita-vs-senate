@@ -71,7 +71,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
     }
 
     for (int i = 0; i < maxEnemy; i++) {
-        Senate[i].Update(pita.hp, pita.maxHP, pita.atk, pita.spd);
+        Senate[i].Update(pita.hp, pita.maxHP, pita.atk, pita.spd, window);
     }
 
     if (pita.enemyKilled >= 200 && isWaveBuff[3] == false) {
@@ -124,7 +124,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
 
     for (int i = 0; i < maxEnemy; i++) {
         if (Senate[i].enemyStatus == 0) {
-            int x = (rand() % 750) + 20;
+            int x = (rand() % ( window.getSize().x - 20)) + 20;
             int y = (rand() % 100) - 50;
             int hp = (rand() % 50) + hpMultiplier;
             int prob = rand() % 100;

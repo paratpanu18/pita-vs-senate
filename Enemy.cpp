@@ -9,7 +9,7 @@ void Enemy::Init() {
 
 void Enemy::Load(int x, int y, int inputHP,int prob) {
     enemyStatus = 1;
-    spd = 2;
+    spd = 1;
 
     if (prob < 5) { // Seper Senate spawn at rate of 5%
             std::cout << "SuperSenate texture loaded successfully" << std::endl;
@@ -56,8 +56,8 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
 
 }
 
-void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerSpd) {
-    if (enemySprite.getPosition().y < 600) {
+void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerSpd, sf::RenderWindow &window) {
+    if (enemySprite.getPosition().y < window.getSize().y + 30) {
         enemySprite.setPosition(enemySprite.getPosition().x, enemySprite.getPosition().y + spd);
     }
 
@@ -109,9 +109,10 @@ void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerS
         }
     }
 
-    if (enemySprite.getPosition().y >= 600) {
+    if (enemySprite.getPosition().y >= window.getSize().y + 25) {
         if (type == 1) {
             playerHP -= 100000; // Super Senate Instant dead
+            enemyStatus = 0;
         }
         else {
             enemyStatus = 0;

@@ -11,14 +11,14 @@ void gui::Init()
 		std::cout << "GUI font loaded succesfully" << std::endl;
 	}
 
-	hpBar.setSize(sf::Vector2f(750, 5));
+	hpBar.setSize(sf::Vector2f(1230, 10));
 	hpBar.setOrigin(0, 0);
-	hpBar.setPosition(25, 570);
+	hpBar.setPosition(25, 690);
 	hpBar.setFillColor(sf::Color::Green);
 
-	hpBarBG.setSize(sf::Vector2f(750, 5));
+	hpBarBG.setSize(sf::Vector2f(1230, 10));
 	hpBarBG.setOrigin(0, 0);
-	hpBarBG.setPosition(25, 570);
+	hpBarBG.setPosition(25, 690);
 	hpBarBG.setFillColor(sf::Color(153, 151, 151));
 	hpBarBG.setOutlineColor(sf::Color::White);
 	hpBarBG.setOutlineThickness(2.5f);
@@ -26,72 +26,72 @@ void gui::Init()
 	// HP
 	hpIconTexture.loadFromFile("Assets/GUI/hp.png");
 	hpIcon.setTexture(hpIconTexture);
-	hpIcon.setScale(0.4f, 0.4f);
-	hpIcon.setPosition(25, 520);
+	hpIcon.setScale(0.5f, 0.5f);
+	hpIcon.setPosition(25, 620);
 
 	HP.setFont(font);
 	HP.setString("HP : ");
-	HP.setCharacterSize(14);
-	HP.setPosition(80, 540);
+	HP.setCharacterSize(20);
+	HP.setPosition(100, 650);
 	HP.setFillColor(sf::Color::White);
 
 	// ATK
 	atkIconTexture.loadFromFile("Assets/GUI/atk.png");
 	atkIcon.setTexture(atkIconTexture);
-	atkIcon.setScale(0.4f, 0.4f);
-	atkIcon.setPosition(225, 520);
+	atkIcon.setScale(0.5f, 0.5f);
+	atkIcon.setPosition(325, 620);
 
 	ATK.setFont(font);
 	ATK.setString("ATK : ");
-	ATK.setCharacterSize(14);
-	ATK.setPosition(280, 540);
+	ATK.setCharacterSize(20);
+	ATK.setPosition(400, 650);
 	ATK.setFillColor(sf::Color::White);
 
 	// SPD
 	spdIconTexture.loadFromFile("Assets/GUI/spd.png");
 	spdIcon.setTexture(spdIconTexture);
-	spdIcon.setScale(0.4f, 0.4f);
-	spdIcon.setPosition(390, 520);
+	spdIcon.setScale(0.5f, 0.5f);
+	spdIcon.setPosition(625, 620);
 
 	SPD.setFont(font);
 	SPD.setString("SPD : ");
-	SPD.setCharacterSize(14);
-	SPD.setPosition(445, 540);
+	SPD.setCharacterSize(20);
+	SPD.setPosition(700, 650);
 	SPD.setFillColor(sf::Color::White);
 
 	// CRIT
 	critIconTexture.loadFromFile("Assets/GUI/crit.png");
 	critIcon.setTexture(critIconTexture);
-	critIcon.setScale(0.4f, 0.4f);
-	critIcon.setPosition(570, 525);
+	critIcon.setScale(0.5f, 0.5f);
+	critIcon.setPosition(925, 630);
 
 	CRITRATE.setFont(font);
 	CRITRATE.setString("Crit Rate : ");
-	CRITRATE.setCharacterSize(14);
-	CRITRATE.setPosition(625, 540);
+	CRITRATE.setCharacterSize(20);
+	CRITRATE.setPosition(990, 650);
 	CRITRATE.setFillColor(sf::Color::White);
 
 	senateKilled.setFont(font);
 	senateKilled.setString("0 / 250");
-	senateKilled.setCharacterSize(30);
-	senateKilled.setPosition(650, 10);
+	senateKilled.setCharacterSize(40);
+	senateKilled.setPosition(1000, 10);
 	senateKilled.setFillColor(sf::Color::Yellow);
 
 	waveDetail.setFont(font);
 	waveDetail.setString(" ");
-	waveDetail.setCharacterSize(12);
-	waveDetail.setPosition(650, 60);
+	waveDetail.setCharacterSize(18);
+	waveDetail.setPosition(1000, 60);
 	waveDetail.setFillColor(sf::Color::White);
 
 	antiStunSkillTexture.loadFromFile("Assets/GUI/antiStun.png");
 	antiStunSkill.setTexture(antiStunSkillTexture);
 	antiStunSkill.setOrigin(0, 50);
-	antiStunSkill.setPosition(720, 560);
+	antiStunSkill.setPosition(1200, 680);
 
 	antiStunSkillCD.setOrigin(0, 50);
 	antiStunSkillCD.setFillColor(sf::Color(0, 0, 0, 100));
 	antiStunSkillCD.setSize(sf::Vector2f(50, 50));
-	antiStunSkillCD.setPosition(720, 560);
+	antiStunSkillCD.setPosition(1200, 680);
 
 	// Popup Text
 	popUpText.setFont(font);
@@ -108,7 +108,7 @@ void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int sena
 	else if (hp / maxHP > 0.4f) hpBar.setFillColor(sf::Color::Yellow);
 	else if (hp / maxHP <= 0.4f) hpBar.setFillColor(sf::Color::Red);
 
-	hpBar.setSize(sf::Vector2f((hp / maxHP) * 750, 5));
+	hpBar.setSize(sf::Vector2f((hp / maxHP) * 1230, 10));
 
 	// ------------- HP Bar -------------
 

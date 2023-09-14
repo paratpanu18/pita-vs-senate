@@ -21,7 +21,7 @@ void Player::Load(int inputHP) {
         playerSprite.setTexture(playerTexture);
         playerSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
         playerSprite.setScale(sf::Vector2f(2, 2));
-        playerSprite.setPosition(400, 300);
+        playerSprite.setPosition(640, 600);
         playerSprite.setOrigin(24, 24);
     }
     else {
@@ -98,14 +98,14 @@ void Player::Update() {
             facing = 'l';
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && currentPosition.y + spd < 600 - 48) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && currentPosition.y + spd < 700 - 48) {
             playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 0, 48, 48));
             playerSprite.setScale(2, 2);
             playerSprite.setPosition(currentPosition + sf::Vector2f(0, spd));
             facing = 'd';
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && currentPosition.x + spd < 800) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && currentPosition.x + spd < 1270) {
             playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
             playerSprite.setScale(2, 2);
             playerSprite.setPosition(currentPosition + sf::Vector2f(spd, 0));
@@ -169,7 +169,7 @@ void Player::Update() {
 
     for (int i = 0; i < maxBullet; i++) {
 
-        if (bulletStatus[i] == 1 && bullet[i].getPosition().y > 0 && bullet[i].getPosition().y < 600 && bullet[i].getPosition().x > 0 && bullet[i].getPosition().x < 800) {
+        if (bulletStatus[i] == 1 && bullet[i].getPosition().y > 0 && bullet[i].getPosition().y < 720 && bullet[i].getPosition().x > 0 && bullet[i].getPosition().x < 1280) {
             int bulletX = bullet[i].getPosition().x;
             int bulletY = bullet[i].getPosition().y;
 
