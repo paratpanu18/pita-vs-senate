@@ -31,37 +31,35 @@ MainMenu::MainMenu(int height, int widgth, sf::RenderWindow& window)
 	// Play button
 	menuButton[0].setFont(font);
 	menuButton[0].setFillColor(sf::Color(242, 120, 0));
-	//menuButton[0].setOutlineColor(sf::Color(252, 107, 3));
-	//menuButton[0].setOutlineThickness(5);
-	menuButton[0].setString("    Play");
-	menuButton[0].setCharacterSize(20);
-	menuButton[0].setPosition(350, 350);
+	menuButton[0].setString("Play");
+	menuButton[0].setCharacterSize(25);
+	menuButton[0].setOrigin((menuButton[0].getGlobalBounds().width)/2, 0);
+	menuButton[0].setPosition(window.getSize().x / 2, window.getSize().y * 0.55f);
 
 
 	// Option button
 	menuButton[1].setFont(font);
 	menuButton[1].setFillColor(sf::Color::White);
-	//menuButton[1].setOutlineColor(sf::Color::Blue);
-	//menuButton[1].setOutlineThickness(5);
 	menuButton[1].setString("Scoreboard");
-	menuButton[1].setCharacterSize(20);
-	menuButton[1].setPosition(340, 400);
+	menuButton[1].setCharacterSize(25);
+	menuButton[1].setOrigin((menuButton[1].getGlobalBounds().width) / 2, 0);
+	menuButton[1].setPosition(window.getSize().x / 2, window.getSize().y * 0.65f);
 
 	// Exit button
 	menuButton[2].setFont(font);
 	menuButton[2].setFillColor(sf::Color::White);
-	//menuButton[2].setOutlineColor(sf::Color::Blue);
-	//menuButton[2].setOutlineThickness(5);
 	menuButton[2].setString("Exit Game");
-	menuButton[2].setCharacterSize(20);
-	menuButton[2].setPosition(345, 450);
+	menuButton[2].setCharacterSize(25);
+	menuButton[2].setOrigin((menuButton[2].getGlobalBounds().width) / 2, 0);
+	menuButton[2].setPosition(window.getSize().x / 2, window.getSize().y * 0.75f);
 
 	//Credit
 	credit.setFont(font);
 	credit.setFillColor(sf::Color::White);
 	credit.setString("Paratpanu Pechsaman | 66010542 | Programming Fundamental KMITL");
-	credit.setCharacterSize(16);
-	credit.setPosition(125, 570);
+	credit.setCharacterSize(18);
+	credit.setOrigin((credit.getGlobalBounds().width) / 2, 0);
+	credit.setPosition(window.getSize().x / 2, window.getSize().y * 0.95f);
 	credit.setOutlineColor(sf::Color::Black);
 	credit.setOutlineThickness(1);
 
