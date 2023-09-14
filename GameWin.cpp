@@ -30,32 +30,36 @@ GameWin::GameWin(int widght, int height, sf::RenderWindow& window, int playerSco
     yourScoreText.setString("YOUR SCORE");
     yourScoreText.setFillColor(sf::Color::Yellow);
     yourScoreText.setCharacterSize(20);
-    yourScoreText.setPosition(350, 10);
+    yourScoreText.setOrigin((yourScoreText.getGlobalBounds().width) / 2, 0);
+    yourScoreText.setPosition(window.getSize().x / 2, window.getSize().y * 0.05f);
 
     playerScoreText.setFont(font);
     playerScoreText.setString(std::to_string(playerScore));
     playerScoreText.setFillColor(sf::Color::White);
     playerScoreText.setCharacterSize(35);
-    playerScoreText.setPosition(390, 30);
+    playerScoreText.setOrigin((playerScoreText.getGlobalBounds().width) / 2, 0);
+    playerScoreText.setPosition(window.getSize().x / 2, window.getSize().y * 0.1f);
 
-    EnterYourNameText.setFont(font);
+    /*EnterYourNameText.setFont(font);
     EnterYourNameText.setString("Enter the name of the PRIME MINISTER\n[                                                                 ]");
     EnterYourNameText.setFillColor(sf::Color::White);
     EnterYourNameText.setCharacterSize(20);
-    EnterYourNameText.setPosition(200, 450);
+    EnterYourNameText.setPosition(200, 450);*/
 
 
     playerNameText.setFont(font);
     playerNameText.setString("");
-    playerNameText.setFillColor(sf::Color::Yellow);
-    playerNameText.setCharacterSize(15);
-    playerNameText.setPosition(350, 485);
+    playerNameText.setFillColor(sf::Color::Black);
+    playerNameText.setCharacterSize(20);
+    playerNameText.setOrigin((playerNameText.getGlobalBounds().width) / 2, 0);
+    playerNameText.setPosition(window.getSize().x / 2, 555);
 
     enterText.setFont(font);
     enterText.setString("");
     enterText.setFillColor(sf::Color::Yellow);
     enterText.setCharacterSize(20);
-    enterText.setPosition(270, 530);
+    enterText.setOrigin((enterText.getGlobalBounds().width) / 2, 0);
+    enterText.setPosition(window.getSize().x / 2, 605);
 
     bgMusic.play();
     GameOverLoop(window, playerScore);
@@ -77,6 +81,8 @@ void GameWin::Update(sf::Event& event, sf::RenderWindow& window, int playerScore
                 playerName += event.text.unicode;
             }
             playerNameText.setString(playerName);
+            playerNameText.setOrigin((playerNameText.getGlobalBounds().width) / 2, 0);
+            playerNameText.setPosition(window.getSize().x / 2, 555);
         }
 
         if (event.type == sf::Event::KeyReleased) {
@@ -107,7 +113,8 @@ void GameWin::Draw(sf::RenderWindow& window)
         enterText.setString("Press [ENTER] to proceed");
         enterText.setFillColor(sf::Color::Yellow);
         enterText.setCharacterSize(20);
-        //enterText.setPosition(270, 500);
+        enterText.setOrigin((enterText.getGlobalBounds().width) / 2, 0);
+        enterText.setPosition(window.getSize().x / 2, 605);
     }
     window.draw(enterText);
 }
