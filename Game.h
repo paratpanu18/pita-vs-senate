@@ -34,6 +34,9 @@ public:
 	sf::SoundBuffer wavePassSoundBuffer;
 	sf::Sound wavePassSound;
 
+	sf::SoundBuffer superSenateAlertBuffer;
+	sf::Sound superSenateAlertSFX;
+
 	sf::Music bgmMusic;
 };
 

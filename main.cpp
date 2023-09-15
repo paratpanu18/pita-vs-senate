@@ -9,7 +9,7 @@
 
 sf::Image icon;
 
-int main() {
+int WinMain() {
 
     icon.loadFromFile("Assets/icon.png");
 

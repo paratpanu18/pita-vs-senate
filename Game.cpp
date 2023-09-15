@@ -36,9 +36,14 @@ Game::Game(sf::RenderWindow& window) {
 
     pita.enemyKilled = 49;
 
+    // SFX Init
     wavePassSoundBuffer.loadFromFile("Assets/SFX/wavePass.mp3");
     wavePassSound.setBuffer(wavePassSoundBuffer);
     wavePassSound.setVolume(100);
+
+    superSenateAlertBuffer.loadFromFile("Assets/SFX/superSenateAlert.mp3");
+    superSenateAlertSFX.setBuffer(superSenateAlertBuffer);
+    superSenateAlertSFX.setVolume(100);
 
     GameLoop(window);
 }
@@ -131,6 +136,7 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
 
             if (prob < 5) {
                 gui.showText("[ Super Senate ] Appear !!", sf::Color::Red, 40, 400, 70, 3, sf::Color::White, 3);
+                superSenateAlertSFX.play();
             }
 
             Senate[i].Init();
