@@ -21,7 +21,7 @@ int WinMain() {
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     // ------------- WINDOWS INIT ------------------
 
-    //window.setMouseCursorVisible(false);
+    window.setMouseCursorVisible(false);
 
 
     // Start game @ Main Menu
