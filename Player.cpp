@@ -81,6 +81,9 @@ void Player::Load(int inputHP) {
     antiStunSound.setBuffer(antiStunSoundBuffer);
     antiStunSound.setVolume(70);
 
+    StunSoundBuffer.loadFromFile("Assets/SFX/StunSFX.mp3");
+    StunSound.setBuffer(StunSoundBuffer);
+    StunSound.setVolume(70);
 }
 
 void Player::Update() {
@@ -258,6 +261,7 @@ void Player::checkIfBulletHit(sf::Sprite enemySprite, int &HP)
     if (playerSprite.getGlobalBounds().intersects(enemyHitbox) && !isPlayerStun && stunClock.getElapsedTime().asSeconds() > 1 && !antiStunActive) {
         isPlayerStun = true;
         playerSprite.setTextureRect(sf::IntRect(96, 432, 48, 48));
+        StunSound.play();
         stunClock.restart();
     }
     

@@ -40,6 +40,9 @@ public:
 
 	sf::Clock stunClock;
 	bool isPlayerStun;
+
+	sf::SoundBuffer StunSoundBuffer;
+	sf::Sound StunSound;
 	
 
 	sf::Music shootSFX;
