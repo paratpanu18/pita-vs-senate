@@ -72,16 +72,26 @@ void gui::Init()
 	CRITRATE.setFillColor(sf::Color::White);
 
 	senateKilled.setFont(font);
-	senateKilled.setString("0 / 250");
-	senateKilled.setCharacterSize(40);
-	senateKilled.setPosition(1000, 10);
-	senateKilled.setFillColor(sf::Color::Yellow);
+	senateKilled.setString("0");
+	senateKilled.setCharacterSize(32);
+	senateKilled.setFillColor(sf::Color(242, 120, 0));
+
+	of250.setFont(font);
+	of250.setString("of 250");
+	of250.setCharacterSize(16);
+	of250.setOrigin((of250.getGlobalBounds().width) / 2, 0);
+	of250.setPosition(580, 60);
+	of250.setFillColor(sf::Color::Black);
 
 	waveDetail.setFont(font);
-	waveDetail.setString(" ");
-	waveDetail.setCharacterSize(18);
-	waveDetail.setPosition(1000, 60);
-	waveDetail.setFillColor(sf::Color::White);
+	waveDetail.setString("");
+	waveDetail.setCharacterSize(9);
+	waveDetail.setFillColor(sf::Color::Black);
+
+	waveNumber.setFont(font);
+	waveNumber.setString("Wave 1");
+	waveNumber.setCharacterSize(24);
+	waveNumber.setFillColor(sf::Color(242, 120, 0));
 
 	antiStunSkillTexture.loadFromFile("Assets/GUI/antiStun.png");
 	antiStunSkill.setTexture(antiStunSkillTexture);
@@ -95,6 +105,12 @@ void gui::Init()
 
 	// Popup Text
 	popUpText.setFont(font);
+
+	// Progreession GUI
+	progressionGUITexture.loadFromFile("Assets/GUI/progressionGUI.png");
+	progressionGUI.setTexture(progressionGUITexture);
+	progressionGUI.setOrigin((progressionGUI.getGlobalBounds().width) / 2, 0);
+	progressionGUI.setPosition(1280 / 2, 20);
 
 }
 
@@ -123,14 +139,20 @@ void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int sena
 	// ------------- Status Bar -------------
 
 	// ------------- Progress -------------
-	senateKilled.setString(std::to_string(senateKilledAmout) + " / 250");
+	senateKilled.setString(std::to_string(senateKilledAmout));
+	senateKilled.setOrigin((senateKilled.getGlobalBounds().width) / 2, 0);
+	senateKilled.setPosition(580, 20);
 	switch (wave) {
-		case 1: waveDetail.setString("    -- Wave 1 of 5 --\nMax Senate : 5\nSenate HP : 100 - 150\nSenate ATK : 3"); 	break;
-		case 2: waveDetail.setString("    -- Wave 2 of 5 --\nMax Senate : 10\nSenate HP : 200 - 250\nSenate ATK : 5");	break;
-		case 3: waveDetail.setString("    -- Wave 3 of 5 --\nMax Senate : 13\nSenate HP : 300 - 350\nSenate ATK : 7");	break;
-		case 4: waveDetail.setString("    -- Wave 4 of 5 --\nMax Senate : 15\nSenate HP : 400 - 450\nSenate ATK : 9");	break;
-		case 5: waveDetail.setString("    -- Wave 5 of 5 --\nMax Senate : 20\nSenate HP : 500 - 550\nSenate ATK : 10");	break;
+		case 1: waveDetail.setString("HP : 100 - 150 | ATK : 3"); 	waveNumber.setString ("Wave 1"); break;
+		case 2: waveDetail.setString("HP : 200 - 250 | ATK : 5");	waveNumber.setString ("Wave 2"); break;
+		case 3: waveDetail.setString("HP : 300 - 350 | ATK : 7");	waveNumber.setString ("Wave 3"); break;
+		case 4: waveDetail.setString("HP : 400 - 450 | ATK : 9");	waveNumber.setString ("Wave 4"); break;
+		case 5: waveDetail.setString("HP : 500 - 550 | ATK : 10");	waveNumber.setString ("Wave 5"); break;
 	}
+	waveDetail.setOrigin((waveDetail.getGlobalBounds().width) / 2, 0);
+	waveDetail.setPosition(675, 68);
+	waveNumber.setOrigin((waveNumber.getGlobalBounds().width) / 2, 0);
+	waveNumber.setPosition(675, 30);
 
 	// ------------- Progress -------------
 
@@ -141,7 +163,7 @@ void gui::Update(float hp, int atk, int spd, int critrate, float maxHP, int sena
 	else {
 		this->antiStunSkillCD.setSize(sf::Vector2f(50.f, 0));
 	}
-	// ------------ Anti Stun CD ----------
+	// ------------ Anti Stun CD -----------
 
 }
 
@@ -159,8 +181,11 @@ void gui::Draw(sf::RenderWindow& window)
 	window.draw(critIcon);
 	window.draw(CRITRATE);
 
+	window.draw(progressionGUI);
 	window.draw(senateKilled); 
+	window.draw(of250);
 	window.draw(waveDetail);
+	window.draw(waveNumber);
 
 	window.draw(hpBarBG);
 	window.draw(hpBar);
@@ -171,6 +196,7 @@ void gui::Draw(sf::RenderWindow& window)
 	if (clock.getElapsedTime().asSeconds() < (int)durationPtr) {
 		window.draw(popUpText);
 	}
+
 }
 
 void gui::showText(std::string text, sf::Color color, int fontSize, int x, int y, int outLineThickness, sf::Color outlineColor, int duration)

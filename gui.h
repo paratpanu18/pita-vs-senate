@@ -39,6 +39,11 @@ public:
 	sf::Texture antiStunSkillTexture;
 	sf::Sprite antiStunSkill;
 
+	sf::Texture progressionGUITexture;
+	sf::Sprite progressionGUI;
+
+	sf::Text of250;
+	sf::Text waveNumber;
 
 	int durationPtr;
 
