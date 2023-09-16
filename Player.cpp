@@ -21,7 +21,7 @@ void Player::Load(int inputHP) {
         std::cout << "Player texture loaded successfully" << std::endl;
         playerSprite.setTexture(playerTexture);
         playerSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
-        playerSprite.setScale(sf::Vector2f(2, 2));
+        playerSprite.setScale(sf::Vector2f(2.5f, 2.5f));
         playerSprite.setPosition(640, 600);
         playerSprite.setOrigin(24, 24);
     }
@@ -72,6 +72,15 @@ void Player::Load(int inputHP) {
     shootSoundBuffer.loadFromFile("Assets/SFX/bulletShoot.mp3");
     shootSound.setBuffer(shootSoundBuffer);
     shootSound.setVolume(50);
+
+    dashSoundBuffer.loadFromFile("Assets/SFX/dashSFX.mp3");
+    dashSound.setBuffer(dashSoundBuffer);
+    dashSound.setVolume(70);
+
+    antiStunSoundBuffer.loadFromFile("Assets/SFX/antiStunSFX.mp3");
+    antiStunSound.setBuffer(antiStunSoundBuffer);
+    antiStunSound.setVolume(70);
+
 }
 
 void Player::Update() {
@@ -81,6 +90,10 @@ void Player::Update() {
 
     if (dashCD.getElapsedTime().asSeconds() > 2) {
         canDash = true;
+    }
+
+    if (bulletFireCD.getElapsedTime().asMilliseconds() > 180) {
+        canFire = true;
     }
 
     frameTimePlayer = sf::seconds(0.2f);
@@ -95,28 +108,28 @@ void Player::Update() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && currentPosition.y - spd > 48) {
 
             playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 96, 48, 48));
-            playerSprite.setScale(2, 2);
+            playerSprite.setScale(2.5f, 2.5f);
             playerSprite.setPosition(currentPosition + sf::Vector2f(0, -spd));
             facing = 'u';
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && currentPosition.x - spd > 0) {
             playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
-            playerSprite.setScale(-2, 2);
+            playerSprite.setScale(-2.5f, 2.5f);
             playerSprite.setPosition(currentPosition + sf::Vector2f(-spd, 0));
             facing = 'l';
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && currentPosition.y + spd < 700 - 48) {
             playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 0, 48, 48));
-            playerSprite.setScale(2, 2);
+            playerSprite.setScale(2.5f, 2.5f);
             playerSprite.setPosition(currentPosition + sf::Vector2f(0, spd));
             facing = 'd';
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && currentPosition.x + spd < 1270) {
             playerSprite.setTextureRect(sf::IntRect(currentFramePlayer * 48, 48, 48, 48));
-            playerSprite.setScale(2, 2);
+            playerSprite.setScale(2.5f, 2.5f);
             playerSprite.setPosition(currentPosition + sf::Vector2f(spd, 0));
             facing = 'r';
         }
@@ -124,40 +137,29 @@ void Player::Update() {
         if ((sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) && canDash) {
             switch (facing)
             {
-            case 'u': playerSprite.setPosition(currentPosition + sf::Vector2f(0, -50)); dashCD.restart(); canDash = false; break;
-            case 'd': playerSprite.setPosition(currentPosition + sf::Vector2f(0, 50)); dashCD.restart(); canDash = false; break;
-            case 'l': playerSprite.setPosition(currentPosition + sf::Vector2f(-50, 0)); dashCD.restart(); canDash = false; break;
-            case 'r': playerSprite.setPosition(currentPosition + sf::Vector2f(50, 0)); dashCD.restart(); canDash = false; break;
+            case 'u': playerSprite.setPosition(currentPosition + sf::Vector2f(0, -100)); dashCD.restart(); canDash = false; break;
+            case 'd': playerSprite.setPosition(currentPosition + sf::Vector2f(0, 100)); dashCD.restart(); canDash = false; break;
+            case 'l': playerSprite.setPosition(currentPosition + sf::Vector2f(-100, 0)); dashCD.restart(); canDash = false; break;
+            case 'r': playerSprite.setPosition(currentPosition + sf::Vector2f(100, 0)); dashCD.restart(); canDash = false; break;
             default:
                 break;
             }
+            dashSound.play();
         }
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) && (canFire || antiStunActive)) {
             for (int i = 0; i < maxBullet; i++) {
-                if (isBreak == 1) { isBreak = 0; break; }
                 if (bulletStatus[i] == 0) {
-                    bool canFire = true;
-
-                    for (int j = 0; j < maxBullet; j++) {
-                        if (i == j || bulletStatus[j] == 0) continue;
-                        else if (findLen(bullet[i], bullet[j]) < 20) {
-                            canFire = false;
-                            isBreak = 1;
-                            break;
-                        }
-                    }
-
-                    if (canFire) {
-                        fireBullet(i);
-                        isBreak = 1;
-                        break;
-                    }
+                    fireBullet(i);
+                    break;
                 }
             }
+            canFire = false;
+            bulletFireCD.restart();
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && canUseAntiStun) {
+            antiStunSound.play();
             std::cout << "Anti Stun activated\n";
             antiStunActive = true;
             canUseAntiStun = false;
@@ -264,7 +266,7 @@ void Player::checkIfBulletHit(sf::Sprite enemySprite, int &HP)
         {
         case 'u': playerSprite.setTextureRect(sf::IntRect(0, 96, 48, 48)); break;
         case 's': playerSprite.setTextureRect(sf::IntRect(0, 0, 48, 48)); break;
-        case 'l': playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48)); playerSprite.setScale(-2, 2); break;
+        case 'l': playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48)); playerSprite.setScale(-2.5f, 2.5f); break;
         case 'r': playerSprite.setTextureRect(sf::IntRect(0, 48, 48, 48)); break;
         default:
             break;

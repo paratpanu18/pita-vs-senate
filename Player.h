@@ -47,8 +47,17 @@ public:
 	sf::SoundBuffer shootSoundBuffer;
 	sf::Sound shootSound;
 
+	sf::SoundBuffer dashSoundBuffer;
+	sf::Sound dashSound;
+
+	sf::SoundBuffer antiStunSoundBuffer;
+	sf::Sound antiStunSound;
+
 	sf::Texture antiStunActiveTexture;
 	sf::Sprite antiStunActiveEffect;
+
+	bool canFire;
+	sf::Clock bulletFireCD;
 
 public:
 	void Init(); // Call once

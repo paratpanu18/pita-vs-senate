@@ -5,6 +5,7 @@
 void Enemy::Init() {
     superSenateTexture.loadFromFile("Assets/enemySpriteSheet.png");
     enemyTexture.loadFromFile("Assets/enemySpriteSheet.png");
+
 }
 
 void Enemy::Load(int x, int y, int inputHP,int prob) {
