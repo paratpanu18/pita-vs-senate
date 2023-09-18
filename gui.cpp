@@ -193,10 +193,13 @@ void gui::Draw(sf::RenderWindow& window)
 	window.draw(antiStunSkill);
 	window.draw(antiStunSkillCD);
 
+}
+
+void gui::DrawPopup(sf::RenderWindow& window)
+{
 	if (clock.getElapsedTime().asSeconds() < (int)durationPtr) {
 		window.draw(popUpText);
 	}
-
 }
 
 void gui::showText(std::string text, sf::Color color, int fontSize, int x, int y, int outLineThickness, sf::Color outlineColor, int duration)
