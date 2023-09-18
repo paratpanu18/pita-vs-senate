@@ -57,9 +57,9 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
 
 }
 
-void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerSpd, sf::RenderWindow &window, bool isSuperSenateOnfeild) {
-    if (isSuperSenateOnfeild) {
-        if (randomPosClock.getElapsedTime().asSeconds() > 2.5f) {
+void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerSpd, sf::RenderWindow &window, bool isSuperSenateOnfeild, int wave) {
+    if (true) {
+        if ((randomPosClock.getElapsedTime().asSeconds() > 2.5f && isSuperSenateOnfeild) || (wave == 5 && randomPosClock.getElapsedTime().asSeconds() > 5.f)) {
             int x = 100 + (rand() % 1000);
 
             enemySprite.setPosition(x, enemySprite.getPosition().y);

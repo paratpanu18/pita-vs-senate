@@ -9,7 +9,7 @@ private:
 public:
 	void Init();
 	void Load(int x, int y, int inputHP, int prob);
-	void Update(int& playerHP, int &playerMaxHP, int& playerAtk, int& playerSpd, sf::RenderWindow &window, bool isSuperSenateOnfeild);
+	void Update(int& playerHP, int &playerMaxHP, int& playerAtk, int& playerSpd, sf::RenderWindow &window, bool isSuperSenateOnfeild, int wave);
 	void Draw(sf::RenderWindow& window);
 	sf::Vector2f getPosition();
 	sf::Sprite getSprite();
