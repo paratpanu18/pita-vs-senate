@@ -5,6 +5,7 @@
 #include "gui.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Buff.h"
 
 class Game
 {
@@ -23,6 +24,9 @@ public:
 	gui gui;
 
 	Player pita;
+
+	Buff buff;
+	sf::Clock buffCDClock;
 
 	void Init();
 	void Update(sf::Event& event, sf::RenderWindow& window);

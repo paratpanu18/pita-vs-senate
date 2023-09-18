@@ -27,6 +27,9 @@ Game::Game(sf::RenderWindow& window) {
     isGameOver = 0;
     gui.Init();
 
+    int buffType = rand() % 3;
+    buff.Init(buffType);
+
     bg.loadFromFile("Assets/gameBG.png");
     bgSprite.setTexture(bg);
 
@@ -152,6 +155,16 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
         }
     }
 
+    // Random Buff
+    if (buffCDClock.getElapsedTime().asSeconds() > 10) {
+        int buffType = rand() % 3;
+        buff.Init(buffType);
+        buffCDClock.restart();
+    }
+
+    buff.Update(pita.playerSprite);
+    buff.UpdateDuration(pita.hp, pita.maxHP, pita.atk, pita.spd);
+
     pita.Update();
 
     for (int i = 0; i < maxEnemy; i++) {
@@ -168,13 +181,16 @@ void Game::Draw(sf::RenderWindow& window)
         window.clear(sf::Color::Black);
 
         window.draw(bgSprite);
+        buff.Draw(window);
         pita.Draw(window);
     
         for (int i = 0; i < maxEnemy; i++) {
             Senate[i].Draw(window);
         }
 
+        
         gui.Draw(window);
+        gui.DrawPopup(window);
 
         window.display();
     }
