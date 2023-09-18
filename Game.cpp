@@ -78,8 +78,17 @@ void Game::Update(sf::Event& event, sf::RenderWindow& window)
              
     }
 
+    bool isSuperSenateOnfeild;
     for (int i = 0; i < maxEnemy; i++) {
-        Senate[i].Update(pita.hp, pita.maxHP, pita.atk, pita.spd, window);
+        if (Senate[i].type == 1) {
+            isSuperSenateOnfeild = true;
+            break;
+        }
+        isSuperSenateOnfeild = false;
+    }
+
+    for (int i = 0; i < maxEnemy; i++) {
+        Senate[i].Update(pita.hp, pita.maxHP, pita.atk, pita.spd, window, isSuperSenateOnfeild);
     }
 
     if (pita.enemyKilled >= 200 && isWaveBuff[3] == false) {

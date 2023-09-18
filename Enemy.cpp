@@ -57,7 +57,18 @@ void Enemy::Load(int x, int y, int inputHP,int prob) {
 
 }
 
-void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerSpd, sf::RenderWindow &window) {
+void Enemy::Update(int& playerHP, int& playerMaxHP, int& playerAtk, int& playerSpd, sf::RenderWindow &window, bool isSuperSenateOnfeild) {
+    if (isSuperSenateOnfeild) {
+        if (randomPosClock.getElapsedTime().asSeconds() > 2.5f) {
+            int x = 100 + (rand() % 1000);
+
+            enemySprite.setPosition(x, enemySprite.getPosition().y);
+
+            randomPosClock.restart();
+        }
+
+    }
+    
     if (enemySprite.getPosition().y < window.getSize().y + 30) {
         enemySprite.setPosition(enemySprite.getPosition().x, enemySprite.getPosition().y + spd);
     }
